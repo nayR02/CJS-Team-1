@@ -1,0 +1,174 @@
+:root {
+    --border-blk: rgb(0 0 0 / 0.3);
+    --label: 13px;
+    --shadow-standard: 0px 0px 10px var(--border-blk);
+    --primary-100:#26A69A;
+    --primary-200:#408d86;
+    --primary-300:#cdfaf6;
+    --accent-100:#80CBC4;
+    --accent-200:#43A49B;
+    --text-100:#263339;
+    --text-200:#728f9e;
+    --bg-100:#E0F2F1;
+    --bg-200:#D0EBEA;
+    --bg-300:#FFFFFF;
+}
+
+
+section {
+    position: relative;
+    padding: 10px;
+    margin: 2% 6%;
+    background: var(--bg-200);
+    box-shadow: 0px 0px 10px var(--border-blk);
+}
+
+.all_tables {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    cursor: pointer;
+    box-shadow: var(--shadow-standard);
+    z-index: 11;
+}
+
+.all_tables th,
+.all_tables td {
+    white-space: nowrap;
+    padding: 12px 15px;
+    text-align: center;
+    font-size: var(--label);
+}
+
+.all_tables thead {
+    background: var(--bg-100);
+    font-weight: 700;
+}
+.all_tables thead td {
+    border: 2px solid var(--primary-100);
+}
+
+.all_tables th {
+    font-weight: bold;
+    color: #333;
+}
+
+.all_tables tbody tr:nth-child(2n) {
+    background: var(--accent-200);
+}
+.all_tables tbody tr {
+    transition: 0.3s;
+}
+.all_tables tbody tr:hover {
+    filter: brightness(110%);
+}
+.modal-content {
+    background: var(--bg-200) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 0px 10px var(--border-blk);
+    border: 1px solid var(--border-blk);
+}
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.modal-body > label {
+    white-space: nowrap;
+}
+.modal-body > input {
+    width: 100%;
+}
+.boxparent:not(.boxparent.three) {
+    position: relative;
+    margin: 1rem 0 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.boxparent.three div {
+    margin: 0 0 0 1rem;
+}
+.boxparent :nth-child(1),
+.boxparent :nth-child(2) {
+    display: flex;
+    flex-direction: column;
+}
+.standard-btn {
+    padding: 5px 20px;
+    border-radius: 5px;
+    background: var(--accent-200);
+    color: var(--text-100);
+    border: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.standard-btn:hover {
+    filter: brightness(110%);
+}
+.modal-body input[type="text"] {
+    background: none !important;
+    outline: none;
+    box-shadow: 5px 5px 5px var(--border-blk);
+    border: 1px solid var(--border-blk);
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: 0.4s;
+}
+.modal-body input[type="text"]:focus {
+    transform: scale(1.02);
+    box-shadow: 6px 6px 0px var(--border-blk);
+}
+.modal-body label {
+    position: absolute;
+    background: var(--bg-200);
+    transform: translate(20px, -17px);
+    transition: 0.3s ease-in-out;
+}
+
+.modal-body input:focus ~label {
+    color: #408d86;
+}
+
+.modal-body input[type="file"],
+.modal-body input[type="file"]::-webkit-file-upload-button {
+    cursor: pointer;
+    box-shadow: 1px 1px 5px var(--border-blk);
+    transition: 0.3s;
+}
+.modal-body input[type="file"]:hover,
+.modal-body input[type="file"]::-webkit-file-upload-button:hover {
+    transform: scale(1.02);
+}
+.modal-body input[type="file"] {
+    width: 50%;
+    background: var(--accent-100);
+    border-radius: 10px;
+}
+.modal-body input[type="file"]::-webkit-file-upload-button {
+    background: var(--accent-200);
+    border: 1px solid var(--border-blk);
+    border-radius: 10px;
+    padding: 2px 4px;
+}
+.modal-footer button {
+    box-shadow: 3px 3px 0px var(--border-blk);
+    transition: 0.2s;
+}
+.modal-footer button:hover {
+    transform: scale(0.98);
+}
+.modal-footer button:focus {
+    transform: scale(1.1);
+}
+#flashMessage {
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.fa-solid.fa-trash {
+    margin: 0 0 0 1ch;
+    color: rgba(255, 0, 0, 0.822);
+}

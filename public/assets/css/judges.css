@@ -1,0 +1,112 @@
+:root {
+    --border-blk: rgb(0 0 0 / 0.3);
+    --label: 13px;
+    --shadow-standard: 0px 0px 10px var(--border-blk);
+    --primary-100:#26A69A;
+    --primary-200:#408d86;
+    --primary-300:#cdfaf6;
+    --accent-100:#80CBC4;
+    --accent-200:#43A49B;
+    --text-100:#263339;
+    --text-200:#728f9e;
+    --bg-100:#E0F2F1;
+    --bg-200:#D0EBEA;
+    --bg-300:#FFFFFF;
+}
+
+
+section {
+    position: relative;
+    margin: 2% 6%;
+    padding: 10px 20px;
+    background: var(--bg-200);
+    box-shadow: 0px 0px 10px var(--border-blk);
+    border-radius: 10px;
+}
+
+.boxinput-parent {
+    padding: 3% 6% 2%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.boxinput input {
+    padding: 5px 10px;
+    background: transparent;
+    outline: none;
+    border: 1px solid var(--border-blk);
+    border-radius: 10px;
+    z-index: 10;
+}
+.standard-btn {
+    padding: 5px 20px;
+    border-radius: 5px;
+    background: var(--accent-200);
+    color: var(--text-100);
+    border: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.standard-btn:hover {
+    filter: brightness(110%);
+}
+.boxinput {
+    position: relative;
+}
+.boxinput label {
+    background: var(--bg-200);
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    transition: 0.3s;
+    pointer-events: none;
+}
+.boxinput input:focus ~label,
+.boxinput input:valid ~label{
+    color: var(--primary-100);
+    z-index: 12;
+    transform: translateX(-10px) translateY(-25px) scale(0.9);
+}
+.all_tables {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    cursor: pointer;
+    box-shadow: var(--shadow-standard);
+}
+
+.all_tables th,
+.all_tables td {
+    padding: 12px 15px;
+    text-align: center;
+    font-size: var(--label);
+}
+
+.all_tables thead {
+    background: var(--bg-100);
+}
+.all_tables thead td{
+    border: 2px solid var(--primary-200);
+    font-weight: 700;
+
+}
+.all_tables th {
+    font-weight: bold;
+    color: #333;
+}
+
+.all_tables tbody tr:nth-child(2n) {
+    background: var(--accent-200);
+}
+.all_tables tbody tr {
+    transition: 0.3s;
+}
+.all_tables tbody tr:hover {
+    filter: brightness(110%);
+}
+.lock {
+    cursor: pointer;
+}

@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+* ::before, * ::after {
+    box-sizing: border-box;
+}
+
+
+:root {
+    --primary-100:#26A69A;
+    --primary-200:#408d86;
+    --primary-300:#cdfaf6;
+    --accent-100:#80CBC4;
+    --accent-200:#43A49B;
+    --text-100:#263339;
+    --text-200:#728f9e;
+    --bg-100:#E0F2F1;
+    --bg-200:#D0EBEA;
+    --bg-300:#FFFFFF;
+      
+}
+.__login_page section {
+    height: 100vh;
+}
+
+header {
+    margin: 20px 20px 0px;
+    padding: 2% 6%;
+    background: var(--bg-100);
+    box-shadow: 0px 10px 10px rgb(0 0 0 /0.3);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    transition: 0.3s;
+}
+header:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 5px 0px var(--border-blk);
+}
+header nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.nav-links li{
+    transform: translateY(10px);
+    list-style: none;
+    display: inline-block;
+    margin: 0 2rem;
+}
+.__except {
+    transform: translateY(10px);
+    list-style: none;
+}
+.nav-links li a {
+    text-decoration: none;
+    color: var(--text-100);
+}
+.nav-links li a::after {
+    content: '';
+    background: var(--primary-100);
+    display: block;
+    margin: auto;
+    height: 2px;
+    width: 0%;
+    transition: 0.5s;
+}
+.nav-links li a:hover::after{
+    width: 100%;
+}
+.offcanvas {
+    box-shadow: 0px 0px 10px rgb(0 0 0 /0.3);
+}
+.offcanvas-header {
+    background: var(--primary-100);
+}
+.tgl-button {
+    display: none;
+}
+@media only screen and (max-width: 768px) {
+    .tgl-button {
+        display: flex;
+    }
+    header nav ul {
+        display: none;
+    }
+}

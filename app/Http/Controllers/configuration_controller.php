@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\configuration_model;
 use Illuminate\Support\Str;
 use App\Models\Configuration;
-use Illuminate\Support\Facades\Session;
-use App\Models\Round;
 
 
 
@@ -64,9 +62,7 @@ class configuration_controller extends Controller
     public function delete_info($id)
     {
         $delete_info = configuration_model::find($id);
-
         $delete_info->delete();
-
         return redirect('candidates')->with('message', "Candidate's Data Deleted");
     }
     public function delete_judge($id)
@@ -154,25 +150,7 @@ class configuration_controller extends Controller
     // ========================
 
 
-    // --event create
-    public function event(Request $request)
-    {
-        $sdate = $request->input('start_date');
-        $edate = $request->input('end_date');
-        $ename = $request->input('event_name');
-        $venue = $request->input('venue');
-
-
-        $information = new Configuration;
-        $information->start_date = $sdate;
-        $information->end_date = $edate;
-        $information->event_name = $ename;
-        $information->venue = $venue;
-
-        $information->save();
-
-        return redirect('add_info');
-    }
+  
     //  --------------------------------------------------------------------
 
 

@@ -12,22 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         //
-        // 
-        Schema::create('candidate_configurations', function (Blueprint $table) {
+        Schema::create('rounds', function (Blueprint $table) {
             $table->id();
-            $table->string('profile');
-            $table->string('candidate_number');
-            $table->string('candidate_name');
-            $table->string('municipality');
-            $table->integer('age');
+            $table->unsignedBigInteger('configuration_id');
+            $table->string('rounds');
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+            $table->foreign('configuration_id')
+                ->references('id')
+                ->on('event_configurations')
+                ->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('candidate_configurations');
+        //
+        Schema::dropIfExists('rounds');
+
     }
 };

@@ -4,7 +4,7 @@
 <head>
     @extends('layout')
     @section('title', 'Admin Configuration || Events')
-    <link rel="stylesheet" href="/storage/css/judges.css">
+    <link rel="stylesheet" href="{{asset('/assets/css/judges.css')}}">
 
 </head>
 

@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('dynamic_input', function (Blueprint $table) {
+        Schema::create('event_configurations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('value');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('event_name');
+            $table->string('venue');
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
@@ -29,5 +30,7 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('event_configurations');
+
     }
 };

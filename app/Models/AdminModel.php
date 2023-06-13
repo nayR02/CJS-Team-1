@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DynamicInput extends Model
+class AdminModel extends Model
 {
     use HasFactory;
-    protected $table = 'dynamic_input';
-    protected $fillable = [
-        'name',
-        'value',
-    ];
+
+    protected $table = 'user_admin';
+    protected $fillables = ['username', 'password'];
 }

@@ -12,4 +12,8 @@ class Configuration extends Model
     protected $table = 'event_configurations';
     protected $fillable = ['start_date', 'end_date', 'event_name', 'venue'];
    
+    public function rounds()
+    {
+        return $this->hasMany(Rounds::class);
+    }
 }

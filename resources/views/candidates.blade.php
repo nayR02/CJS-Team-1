@@ -4,7 +4,7 @@
 <head>
     @extends('layout')
     @section('title', 'Candidates')
-    <link rel="stylesheet" href="/storage/css/candidates.css">
+    <link rel="stylesheet" href="{{asset('/assets/css/candidates.css')}}">
     </style>
 </head>
 
@@ -21,7 +21,7 @@
             </button>
             @if (session('message'))
             <div id="flashMessage" class="alert alert-danger">
-                {{ session('message') }}
+                {{ session('message') }}<i class="fa-solid fa-trash"></i>
             </div>
             <script>
                 const flashMessage = document.getElementById('flashMessage');

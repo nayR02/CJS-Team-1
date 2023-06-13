@@ -4,109 +4,154 @@
 <head>
     @extends('layout')
     @section('title', 'Configurations')
-    <link rel="stylesheet" href="/storage/css/configurations.css">
+    <link rel="stylesheet" href="{{asset('/assets/css/configurations.css')}}">
 </head>
 
 <body class="__add-con">
     @section('header')
     @section('.canvas__')
     <main class="d-flex align-items-center justify-content-center flex-column">
-        <div class="section_wrap">
-            <section class="event_sec mt-3" id="step1">
-                <span>Event</span>
-                <form action="{{('add_info') }}" method="POST">
-                    @csrf
-                    <div class="my-2 boxparent">
-                        <div class="boxinput">
-                            <input type="date" id="startDate" name="start_date" required>
-                            <label for="">Start Date</label>
-                        </div>
-                        <div class="boxinput">
-                            <input type="date" id="endDate" name="end_date" required>
-                            <label for="">End Date</label>
-                        </div>
-                    </div>
-                    <div class="boxparent">
-                        <div class="boxinput">
-                            <input type="text" id="eventName" name="event_name" required>
-                            <label for="eventName">Event Name</label>
-                        </div>
-                        <div class="boxinput">
-                            <input type="text" id="venue" name="venue" required>
-                            <label for="">Venue</label>
-                        </div>
-                    </div>
-                    <div class="rounds mt-3">
-                        <div class="add_round">
-                            <label for="myNumberInput">Enter number of Rounds:</label>
-                            <input type="number" id="myNumberInput" min="1" max="10" step="1" />
-                            <button id="generateButton" class="standard-btn" type="button" onclick="generateFields()">Add Rounds</button>
-                        </div>
-                        <div id="inputFieldParent">
-                            <div id="inputFields">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="buttonparent">
-                        <button class="standard-btn" type="submit">Add</button>
-                    </div>
-                </form>
-
+        <!-- Button ka modal || Main Page -->
+        <section class="mainchild">
+            <section class="buttonparent">
+                <div class="abs-btn">
+                    <button id="customModal" class="create-btn animated heartBeat" onclick="openModal()">Create Event</button>
+                    <span class="popover">Click to add Event</span>
+                </div>
             </section>
-        </div>`
+            <!-- Parent Element ka modal || Start -->
+            <div id="myModal" class="modal">
+                <!-- Content ka Modalllllll -->
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <section class="modal-in">
+                        <span>Add Event</span>
+                        <form id="eventForm" action="{{('/add_info')}}" method="POST">
+                            @csrf
+                            <div class="my-2 boxparent">
+                                <div class="boxinput">
+                                    <input type="date" id="startDate" name="start_date" required>
+                                    <label for="startDate">Start Date</label>
+                                </div>
+                                <div class="boxinput">
+                                    <input type="date" id="endDate" name="end_date" required>
+                                    <label for="endDate">End Date</label>
+                                </div>
+                            </div>
+                            <div class="boxparent">
+                                <div class="boxinput">
+                                    <input type="text" id="eventName" name="event_name" required>
+                                    <label for="eventName">Event Name</label>
+                                </div>
+                                <div class="boxinput">
+                                    <input type="text" id="venue" name="venue" required>
+                                    <label for="venue">Venue</label>
+                                </div>
+                            </div>
+                            <div class="genwrap">
+                                <figure class="genparent">
+                                    <label>Enter number of Rounds: </label>
+                                    <input type="number" id="numInputs"/>
+                                    <button onclick="rounds()" class="standard-btn"><i class="fa-solid fa-circle-plus me-1"></i>Add Round(s)</button>
+                                </figure>
+                                <div id="inputContainer">
+                                </div>
+                            </div>
+                            <div class="">
+                                <button class="standard-btn" id="submitButton" type="submit">Save</button>
+                            </div>
+                            <script>
+                                function rounds() {
+                                    event.preventDefault();
+                                    const dInputs = [];
+                                    const inputContainer = document.getElementById("inputContainer");
+                                    const numInputs = parseInt(document.getElementById("numInputs").value);
+                                    inputContainer.innerHTML = "";
+                                    for (let i = 0; i < numInputs; i++) {
+                                        const input = document.createElement("input");
+                                        input.type = "text";
+                                        input.id = `round_${i + 1}`;
+                                        input.name = "rounds[]";
+                                        input.placeholder = "(e.g. Preliminary)";
+                                        inputContainer.appendChild(input);
+                                        dInputs.push(input.value);
+                                    }
+                                }
+                            </script>
+                        </form>
+                    </section>
+                </div>
+            </div>
+            @if (session('event'))
+            <div id="eventAddedMsg" class="event-alert alert alert-success">
+                {{ session('event') }} <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('eventAddedMsg').style.display = 'none';
+                }, 2000);
+            </script>
+            @endif
+
+            @if($eventConfigurations->count() === 0)
+            <p class="NED">No event data.</p>
+            @else
+            @foreach($eventConfigurations as $key => $eventConfiguration)
+            <div class="event-content">
+                <div class="delparent">
+                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}"><span>&times;</span></a>
+                    <div class="quote">Delete this event</div>
+                </div>
+                <span class="event-name mb-2"><i class="fa-regular fa-calendar-check me-1"></i>{{ $eventConfiguration->event_name }}</span>
+                <span class="venue"><i class="fa-solid fa-location-dot"></i> {{ $eventConfiguration->venue }}</span>
+                <div class="event-box my-2"><i class="fa-solid fa-clock mx-1"></i>
+                    <span class="start-date">{{ $eventConfiguration->start_date }}</span>
+                    <span><i class="fa-solid fa-arrow-right mx-3"></i></span>
+                    <span class="end-date">{{ $eventConfiguration->end_date }}</span>
+                </div>
+                <section class="rounds__">
+                    <span>Categories & Criteria</span>
+                    <table class="all_tables">
+                        <thead>
+                            <tr>
+                                @foreach ($rounds as $roundKey => $round)
+                                @isset($round)
+                                <td>{{ $round->rounds }}</td>
+                                @endisset
+                                @endforeach
+                            </tr>
+                        </thead>
+                    </table>
+                </section>
+            </div>
+            @endforeach
+            @endif
+
+
+        </section>
+
+
     </main>
 
     @endsection
     @endsection
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
-        function generateFields() {
-            const numberInput = document.querySelector("#myNumberInput");
-            const inputValue = Number(numberInput.value);
-            const inputFieldsContainer = document.querySelector("#inputFields");
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            var modalContent = document.querySelector(".modal-content");
+            modal.style.display = "block";
+            void modalContent.offsetWidth;
+            modalContent.style.opacity = 1;
+        }
 
-            event.preventDefault();
-
-            const inputs = [];
-
-            for (let i = 0; i < inputValue; i++) {
-                const inputField = document.createElement("input");
-                inputField.type = "text";
-                inputField.setAttribute("required", "true");
-                inputField.name = `rounds_${i + 1}`;
-                inputField.id = `rounds_${i + 1}`;
-                inputField.placeholder = "(e.g. Preliminary) Round";
-
-                // Append the input field to the container
-                inputFieldsContainer.appendChild(inputField);
-
-                // Push the input field to the inputs array
-                inputs.push(inputField.value);
-            }
-
-            numberInput.value = "";
-
-            // Send the data to the server via AJAX
-            fetch('/store-fields', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        inputs: inputs
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response from the server if needed
-                    console.log(data);
-                })
-                .catch(error => {
-                    // Handle any errors that occurred during the request
-                    console.error(error);
-                });
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            var modalContent = document.querySelector(".modal-content");
+            modalContent.style.opacity = 0;
+            setTimeout(function() {
+                modal.style.display = "none";
+            }, 300);
         }
     </script>
 
