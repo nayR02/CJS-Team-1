@@ -336,6 +336,7 @@
 .event-box {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .event-content :is(.fa-calendar-check, .fa-location-dot, .fa-clock) {
     color: var(--primary-100);
@@ -348,8 +349,19 @@
     transform: translateY(-5px);
 }
 .fa-clock:hover {
-    transform: rotate(360deg) scale(1.01);
+    transform: rotate(720deg) scale(1.01);
 }
+.event-date, .venue{
+    cursor: pointer;
+}
+.event-date span:hover ~i,
+.venue span:hover ~i {
+    transform: translateY(-5px);
+}
+.event-box span:hover ~.fa-clock{
+    transform: rotate(720deg);
+}
+
 .event-name {
     font-size: 20px;
     font-weight: 500;
@@ -433,6 +445,18 @@
     justify-content: center;
     align-items: center;
 }
+.cat-link{
+    text-decoration: none;
+    color: var(--text-100);
+    font-weight: 550;
+    transition: 0.4s;
+}
+.rounds__ span {
+    transition: 0.4s;
+}
+.rounds__ span:hover {
+    transform: scale(1.01);
+}
 
 #inputContainer {
     margin: 0.5rem 1rem 0;
@@ -481,4 +505,44 @@
     box-shadow: var(--shadow-standard);
 }
 
+.rounds__ figure {
+    white-space: nowrap;
+    margin: 1rem 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+}
+.rounds-data {
+    text-align: center;
+    width: 100%;
+    padding: 1% 2%;
+    border: 1px solid var(--accent-200);
+}
+.cat__p {
+    display: flex;
+    align-items: center;
+}
+.cat__p i {
+    transform: translateX(3rem);
+    color: var(--primary-100);
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+}
+.cat__p span:hover ~.fa-hand-point-left {
+    opacity: 1;
+    transform: translateX(-0.01rem);
+}
+.cat-link {
+    transition: 0.3s;
+}
+.cat-link:hover {
+    color: rgba(18, 46, 52, 0.735);
+}
 
+.jc-section {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}

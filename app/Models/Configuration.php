@@ -10,7 +10,7 @@ class Configuration extends Model
     use HasFactory;
 
     protected $table = 'event_configurations';
-    protected $fillable = ['start_date', 'end_date', 'event_name', 'venue'];
+    protected $fillable = ['date', 'start_time', 'end_time', 'event_name', 'venue'];
    
     public function rounds()
     {

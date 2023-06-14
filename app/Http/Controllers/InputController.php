@@ -14,14 +14,16 @@ class InputController extends Controller
 
     public function storeInputs(Request $request)
     {
-        $sdate = $request->input('start_date');
-        $edate = $request->input('end_date');
+        $date = $request->input('date');
+        $stime = $request->input('start_time');
+        $etime = $request->input('end_time');
         $ename = $request->input('event_name');
         $venue = $request->input('venue');
 
         $eventConfiguration = new Configuration;
-        $eventConfiguration->start_date = $sdate;
-        $eventConfiguration->end_date = $edate;
+        $eventConfiguration->date = $date;
+        $eventConfiguration->start_time = $stime;
+        $eventConfiguration->end_time = $etime;
         $eventConfiguration->event_name = $ename;
         $eventConfiguration->venue = $venue;
         $eventConfiguration->save();
@@ -54,12 +56,11 @@ class InputController extends Controller
 
         $rounds = Rounds::all();
         foreach ($eventConfigurations as $eventConfiguration) {
-            $eventConfiguration->start_date = $eventConfiguration->start_date ? Carbon::parse($eventConfiguration->start_date)->format('F j, Y') : null;
-            $eventConfiguration->end_date = $eventConfiguration->end_date ? Carbon::parse($eventConfiguration->end_date)->format('F j, Y') : null;
+            $eventConfiguration->date = $eventConfiguration->date ? Carbon::parse($eventConfiguration->start_date)->format('F j, Y') : null;
         }
 
 
-        return view('add_info', compact('eventConfigurations'), compact('rounds'), ['user' => $user]);
+        return view('add_info', compact('eventConfigurations'), compact('rounds'), compact('user'));
     }
 
 
@@ -82,7 +83,7 @@ class InputController extends Controller
         if(!$user) {
             return view('/admin-login');
         }
-        return view('/admin-login' , ['user' => $user]);
+        return redirect()->route('read_add_info' , ['user' => $user]);
     }
 
     public function save(Request $request)
@@ -92,7 +93,7 @@ class InputController extends Controller
         $user = AdminModel::where('username', $username)->first();
         if ($user && $user->password === $password) {
             $request->session()->put('user', $user);
-            return redirect()->route('event.input');
+            return redirect()->route('read_add_info');
         } else {
             return redirect()->back()->withErrors(['error' => 'Invalid login credentials']);
         }

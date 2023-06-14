@@ -13,8 +13,13 @@ class Rounds extends Model
 
     protected $fillable = ['rounds'];
     
+    // --
     public function configuration()
     {
         return $this->belongsTo(Configuration::class);
+    }
+    // --
+    public function categories() {
+        return $this->hasMany(Categories::class);
     }
 }

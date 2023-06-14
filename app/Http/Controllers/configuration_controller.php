@@ -6,7 +6,6 @@ use App\Models\judgemodel;
 use Illuminate\Http\Request;
 use App\Models\configuration_model;
 use Illuminate\Support\Str;
-use App\Models\Configuration;
 
 
 

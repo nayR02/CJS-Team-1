@@ -30,28 +30,32 @@
                             @csrf
                             <div class="my-2 boxparent">
                                 <div class="boxinput">
-                                    <input type="date" id="startDate" name="start_date" required>
-                                    <label for="startDate">Start Date</label>
+                                    <input type="time" id="startDate" name="start_time" required>
+                                    <label for="startDate">Start Time</label>
                                 </div>
                                 <div class="boxinput">
-                                    <input type="date" id="endDate" name="end_date" required>
-                                    <label for="endDate">End Date</label>
+                                    <input type="time" id="endDate" name="end_time" required>
+                                    <label for="endDate">End Time</label>
                                 </div>
                             </div>
                             <div class="boxparent">
                                 <div class="boxinput">
-                                    <input type="text" id="eventName" name="event_name" required>
-                                    <label for="eventName">Event Name</label>
+                                    <input type="text" id="eventName" name="event_name" placeholder="Event Name" required>
                                 </div>
                                 <div class="boxinput">
-                                    <input type="text" id="venue" name="venue" required>
-                                    <label for="venue">Venue</label>
+                                    <input type="text" id="venue" name="venue" placeholder="Venue" required>
+                                </div>
+                            </div>
+                            <div class="boxparent">
+                                <div class="boxinput">
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" name="date" required>
                                 </div>
                             </div>
                             <div class="genwrap">
                                 <figure class="genparent">
                                     <label>Enter number of Rounds: </label>
-                                    <input type="number" id="numInputs"/>
+                                    <input type="number" id="numInputs" />
                                     <button onclick="rounds()" class="standard-btn"><i class="fa-solid fa-circle-plus me-1"></i>Add Round(s)</button>
                                 </figure>
                                 <div id="inputContainer">
@@ -102,25 +106,88 @@
                     <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}"><span>&times;</span></a>
                     <div class="quote">Delete this event</div>
                 </div>
-                <span class="event-name mb-2"><i class="fa-regular fa-calendar-check me-1"></i>{{ $eventConfiguration->event_name }}</span>
-                <span class="venue"><i class="fa-solid fa-location-dot"></i> {{ $eventConfiguration->venue }}</span>
-                <div class="event-box my-2"><i class="fa-solid fa-clock mx-1"></i>
-                    <span class="start-date">{{ $eventConfiguration->start_date }}</span>
+                <div class="event-name">
+                    <span class="mb-2">{{ $eventConfiguration->event_name }}</span>
+                </div>
+                <div class="venue">
+                    <span>{{ $eventConfiguration->venue }}</span>
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="event-date">
+                    <span class="start-date">{{ $eventConfiguration->date }}</span>
+                    <i class="fa-regular fa-calendar-check me-1"></i>
+
+                </div>
+                <div class="event-box">
+                    <span class="start-date">{{ $eventConfiguration->start_time }}</span>
                     <span><i class="fa-solid fa-arrow-right mx-3"></i></span>
-                    <span class="end-date">{{ $eventConfiguration->end_date }}</span>
+                    <span class="end-date">{{ $eventConfiguration->end_time }}</span>
+                    <i class="fa-solid fa-clock mx-1"></i>
                 </div>
                 <section class="rounds__">
-                    <span>Categories & Criteria</span>
+                    <div class="cat__p">
+                        <span><a href="{{('/categories')}}" class="cat-link me-2">Categories & Criteria</a></span>
+                        <i class="fa-solid fa-hand-point-left"></i>
+                    </div>
+                    <figure>
+                        @foreach ($rounds as $roundKey => $round)
+                        @isset($round)
+                        <div class="rounds-data">{{ $round->rounds }}</div>
+                        <!-- <section class="round-data-parent">
+                            <form class="second-form">
+                                <input type="text" name="category" placeholder="Add Category">
+                                <button onclick="addCat()" type="submit">Add</button>
+                                <div id="categoryContainer">
+
+                                </div>
+                            </form>
+                        </section> -->
+                        @endisset
+                        @endforeach
+                    </figure>
+                </section>
+                <section class="jc-section">
+                    @php
+                    $judges = App\Models\judgemodel::all();
+                    $infoList = App\Models\configuration_model::all();
+                    @endphp
                     <table class="all_tables">
                         <thead>
-                            <tr>
-                                @foreach ($rounds as $roundKey => $round)
-                                @isset($round)
-                                <td>{{ $round->rounds }}</td>
-                                @endisset
-                                @endforeach
+                            <tr style="font-weight: 550;">
+                                <td>#</td>
+                                <td>Judges</td>
                             </tr>
                         </thead>
+                        <tbody>
+                            @php
+                            $counter = 1;
+                            @endphp
+                            @foreach ($judges as $judge)
+                            <tr>
+                                <td>{{$counter}}</td>
+                                <td>{{$judge->judge_name}}</td>
+                            </tr>
+                            @php
+                            $counter++;
+                            @endphp
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <table class="all_tables">
+                        <thead>
+                            <tr style="font-weight: 550;">
+                                <td>Candidate #</td>
+                                <td>Candidates</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($infoList as $getInfo)
+                            <tr>
+                                <td>{{$getInfo->candidate_number}}</td>
+                                <td>{{$getInfo->candidate_name}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </section>
             </div>
@@ -132,7 +199,6 @@
 
 
     </main>
-
     @endsection
     @endsection
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>

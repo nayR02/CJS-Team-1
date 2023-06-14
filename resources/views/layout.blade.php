@@ -22,7 +22,6 @@
                 <li><a href="{{('/add_info')}}">Configurations</a></li>
                 <li><a href="{{('/judges')}}">Judges</a></li>
                 <li><a href="{{('/candidates')}}">Candidates</a></li>
-                <li><a href="{{('/categories')}}">Categories</a></li>
             </ul>
             <ul class="__except">
                 <li class="dropdown">

@@ -1,50 +1,49 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     @extends('layout')
     @section('title', 'Categories')
-    <link rel="stylesheet" href="/storage/css/categories.scss">
+    <link rel="stylesheet" href="{{asset('/assets/css/categories.css')}}">
 </head>
 
 <body>
     @section('header')
     @section('.canvas__')
     <main>
-        <section class="__cat">
-            <form action="{{route('dynamic_inputs')}}" method="POST" id="categoryForm">
-                @csrf
-                <div>
-                    <input type="number" id="numInputs" placeholder="Generate Rounds" />
-                    <button onclick="rounds()" class="standard-btn"><i class="fa-solid fa-circle-plus"></i></button>
-                    <div id="inputContainer">
-                    </div>
-                    <button type="submit" onclick="xRefresh()" class="standard-btn">Save</button>
+        <h1>marker</h1>
+        @php
+        $rounds = App\Models\Rounds::all();
+        $eventConfigurations = App\Models\Configuration::all();
+        @endphp
+
+        @foreach ($rounds as $roundKey => $round)
+        @isset($round)
+        <section id="round-{{ $roundKey }}" class="round-data-parent">
+            <div class="rounds-data">{{ $round->rounds }}</div>
+            <button onclick="addCat('{{ $roundKey }}')" type="button">Add</button>
+            <form class="second-form">
+                <div class="categoryContainer" id="categoryContainer-{{ $roundKey }}">
+
                 </div>
-                <script>
-                    function rounds() {
-                        event.preventDefault();
-                        const dInputs = [];
-                        const inputContainer = document.getElementById("inputContainer");
-                        const numInputs = parseInt(document.getElementById("numInputs").value);
-                        inputContainer.innerHTML = "";
-                        for (let i = 0; i < numInputs; i++) {
-                            const input = document.createElement("input");
-                            input.type = "text";
-                            input.name = "rounds[]";
-                            input.placeholder = "Rounds (e.g. Preliminary)";
-                            inputContainer.appendChild(input);
-                            dInputs.push(input.value);
-                        }
-                    }
-                </script>
             </form>
-            
+        </section>
+        <!-- || -->
+        <script>
+            function addCat(roundKey) {
+                const inputContainer = document.getElementById('categoryContainer-' + roundKey);
+                const newInput = document.createElement('input');
+                newInput.type = 'text';
+                inputContainer.appendChild(newInput);
+            }
+        </script>
+        @endisset
+        @endforeach
+
     </main>
     </section>
     @endsection
     @endsection
-    @vite(['resources/scss/categories.scss']);
 </body>
 
-</html> -->
+</html>
