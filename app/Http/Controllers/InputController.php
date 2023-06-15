@@ -37,7 +37,9 @@ class InputController extends Controller
             $dynamic->save();
         }
 
-        return redirect('add_info')->with('event', 'Event added successfully.');
+        return redirect('add_info')->with([
+            'event' => 'Event added successfully.'
+        ]);
     }
     // public function dashboard(Request $request) {
 

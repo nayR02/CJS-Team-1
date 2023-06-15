@@ -24,25 +24,28 @@ class configuration_controller extends Controller
         $cname = $request->input('candidate_name');
         $municipality = $request->input('municipality');
         $age = $request->input('age');
-        if ($request->hasFile('image')) {
-            $profile = $request->file('image')->store('images', 'public');
-        } else {
-            // Handle the case when no image is uploaded
-            $profile = "";
-        }
 
-        $information = new configuration_model;
+        $information = new configuration_model; // Replace with your configuration model name
+
         $information->candidate_number = $cnumber;
         $information->candidate_name = $cname;
         $information->municipality = $municipality;
         $information->age = $age;
-        $information->profile = $profile;
+
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $imageName = $image->getClientOriginalName();
+            $path = $image->storeAs('assets/images', $imageName);
+            $information->profile = $path;
+        } else {
+            // Handle the case when no image is uploaded
+            $information->profile = "";
+        }
 
         $information->save();
 
         return redirect('candidates');
     }
-
     // -- candidates Read
     public function get_info()
     {
@@ -149,7 +152,7 @@ class configuration_controller extends Controller
     // ========================
 
 
-  
+
     //  --------------------------------------------------------------------
 
 
@@ -158,5 +161,5 @@ class configuration_controller extends Controller
 
 
 
-    
+
 }

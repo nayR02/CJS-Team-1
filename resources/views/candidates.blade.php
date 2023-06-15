@@ -45,7 +45,7 @@
                 <tbody>
                     @foreach($infoList as $getInfo)
                     <tr>
-                        <td><img src="{{ asset('storage/' . $getInfo->image_path) }}" alt="Image"> </td>
+                        <td><img class="candidate-img" src="{{ asset('/storage/images/' . $getInfo->profile) }}" alt="Image" onclick="displayImage(this)"></td>
                         <td>{{$getInfo->candidate_number}}</td>
                         <td>{{$getInfo->candidate_name}}</td>
                         <td>{{$getInfo->municipality}}</td>
@@ -54,6 +54,54 @@
                             <a href="{{route('delete_info',['id' => $getInfo->id])}}"><button class="btn btn-danger">Delete</button></a>
                         </td>
                     </tr>
+                    <script>
+                        function displayImage(imgElement) {
+                            var container = $('<div class="enlarged-image-container"></div>');
+                            var enlargedImg = $('<img class="enlarged-image" src="' + imgElement.src + '" alt="Enlarged Image">');
+                            enlargedImg.css({
+                                width: '20rem',
+                                opacity: 0,
+                                transform: 'scale(0.9)',
+                                transition: 'opacity 0.4s, transform 0.4s',
+                                boxShadow: '0px 0px 20px rgb(0 0 0 / 0.3)'
+                            });
+                            var closeButton = $('<button class="close-button">&times;</button>');
+                            closeButton.on('click', function() {
+                                container.addclassList('x-btn');
+                                container.css({
+                                    opacity: 0,
+                                    transform: 'scale(0.9)',
+                                });
+                                setTimeout(function() {
+                                    container.remove();
+                                }, 400);
+                            });
+                            container.append(enlargedImg);
+                            container.append(closeButton);
+                            $('body').append(container);
+                            container.css({
+                                position: 'fixed',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)'
+                            });
+                            setTimeout(function() {
+                                enlargedImg.css({
+                                    opacity: 1,
+                                    transform: 'scale(1)'
+                                });
+                            }, 10);
+                            container.on('click', function(event) {
+                                container.css({
+                                    opacity: 0,
+                                    transform: 'scale(0.9)'
+                                });
+                                setTimeout(function() {
+                                    container.remove();
+                                }, 400);
+                            });
+                        }
+                    </script>
                     @endforeach
                 </tbody>
             </table>
@@ -65,11 +113,11 @@
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Candidate</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form class="modal-body" action="{{('candidates')}}" method="POST" enctype="multipart/form-data">
+                        <form id="imageUploadForm" class="modal-body" action="{{('candidates')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="boxparent one">
                                 <div>
-                                    <input type="text" id="candidateNumber" name="candidate_number">
+                                    <input type="number" id="candidateNumber" name="candidate_number">
                                     <label for="candidateNumber">Candidate Number</label>
                                 </div>
                                 <div>
@@ -83,7 +131,7 @@
                                     <label for="municipality">Municipality</label>
                                 </div>
                                 <div>
-                                    <input type="text" id="age" name="age">
+                                    <input type="number" id="age" name="age">
                                     <label for="age">Age</label>
                                 </div>
                             </div>
@@ -105,32 +153,26 @@
     </main>
     @endsection
     <script>
-        // JavaScript code here
-        // ...
+        $(document).ready(function() {
+            $('#imageUploadForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
 
-        // Get references to the input element and the preview container
-        const imageInput = document.getElementById('imageInput');
-        const previewContainer = document.getElementById('previewContainer');
-
-        // Add event listener to the file input
-        imageInput.addEventListener('change', function(event) {
-            const file = event.target.files[0]; // Get the selected file
-
-            // Check if a file is selected
-            if (file) {
-                const reader = new FileReader(); // Create a FileReader object
-
-                // Set up the FileReader onload event
-                reader.onload = function() {
-                    const image = document.createElement('img'); // Create an image element
-                    image.src = reader.result; // Set the source of the image to the data URL
-                    previewContainer.innerHTML = ''; // Clear the preview container
-                    previewContainer.appendChild(image); // Append the image to the preview container
-                };
-
-                // Read the selected file as a data URL
-                reader.readAsDataURL(file);
-            }
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            });
         });
     </script>
 </body>

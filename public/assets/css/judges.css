@@ -14,12 +14,14 @@
     --bg-300:#FFFFFF;
 }
 
-
+.__add-jdg {
+    background: var(--bg-200);
+}
 section {
     position: relative;
     margin: 2% 6%;
     padding: 10px 20px;
-    background: var(--bg-200);
+    background: var(--bg-100);
     box-shadow: 0px 0px 10px var(--border-blk);
     border-radius: 10px;
 }
@@ -57,7 +59,7 @@ section {
     position: relative;
 }
 .boxinput label {
-    background: var(--bg-200);
+    background: var(--bg-100);
     position: absolute;
     top: 8px;
     left: 12px;

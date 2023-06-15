@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('criterias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rounds_id');
-            $table->string('category_name');
-            $table->string('category_value');
+            $table->unsignedBigInteger('categories_id');
+            $table->string('criteria_name');
+            $table->string('criteria_value');
             $table->timestamp('last_used_at')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-            $table->foreign('rounds_id')
+            $table->foreign('categories_id')
                 ->references('id')
-                ->on('rounds')
+                ->on('categories')
                 ->onDelete('cascade');
         });
     }

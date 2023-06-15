@@ -37,12 +37,16 @@ Route::get('/delete_info/{id}', 'App\http\Controllers\configuration_controller@d
 Route::post('/judges/create', 'App\http\Controllers\configuration_controller@generate')->name('judge.generate');
 Route::get('/judges', 'App\http\Controllers\configuration_controller@judgeRead')->name('judge_info');
 Route::get('/delete_judge/{id}', 'App\http\Controllers\configuration_controller@delete_judge')->name('delete_judge');
-// -- Events Route
+// -- Events Route || Rounds
 Route::post('/add_info', 'App\Http\Controllers\InputController@storeInputs')->name('event.input');
 Route::get('/add_info', 'App\Http\Controllers\InputController@read')->name('read_add_info');
 Route::get('/delete_event/{id}', 'App\Http\Controllers\InputController@delete_event')->name('delete_event');
 
 // -- Login
-Route::get('/admin-login', 'App\Http\Controllers\InputController@adminLogin')->name('admin-user');
 Route::post('/admin-login', 'App\Http\Controllers\InputController@save')->name('user');
+Route::get('/admin-login', 'App\Http\Controllers\InputController@adminLogin')->name('admin-user');
 Route::get('logout', 'App\Http\Controllers\InputController@adminLogout')->name('admin-logout');
+
+// -- Category
+Route::post('/categories', 'App\Http\Controllers\CategoryController@saveCategory')->name('save.category');
+// Route::get('/categories', 'App\Http\Controllers\CategoryController@readCategory')->name('read.category');
