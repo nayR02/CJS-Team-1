@@ -32,6 +32,7 @@
     background: var(--bg-200);
 }
 main {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -144,4 +145,10 @@ main {
 }
 .all_tables tbody tr:hover {
     filter: brightness(110%);
+}
+#eventAddedMsg {
+    position: absolute;
+    top: 0%;
+    right: 27%;
+    transform: translate(-50%, -50%);
 }

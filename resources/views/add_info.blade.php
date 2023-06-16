@@ -10,6 +10,12 @@
 <body class="__add-con">
     @section('header')
     @section('.canvas__')
+    @php
+    $judges = App\Models\judgemodel::all();
+    $categories = App\Models\Categories::all();
+    $rounds = App\Models\Rounds::all();
+    $infoList = App\Models\configuration_model::all();
+    @endphp
     <main class="d-flex align-items-center justify-content-center flex-column">
         <!-- Button ka modal || Main Page -->
         <section class="mainchild">
@@ -130,27 +136,27 @@
                         <i class="fa-solid fa-hand-point-left"></i>
                     </div>
                     <figure>
-                        @foreach ($rounds as $roundKey => $round)
-                        @isset($round)
-                        <div class="rounds-data">{{ $round->rounds }}</div>
-                        <!-- <section class="round-data-parent">
-                            <form class="second-form">
-                                <input type="text" name="category" placeholder="Add Category">
-                                <button onclick="addCat()" type="submit">Add</button>
-                                <div id="categoryContainer">
-
-                                </div>
-                            </form>
-                        </section> -->
-                        @endisset
+                        @foreach ($rounds as $round)
+                        <table class="all_tables">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" class="th-round">{{ $round->rounds }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($round->categories as $category)
+                                <tr>
+                                    <td>{{ $category->category_name }}</td>
+                                    <td>{{ $category->category_value }}%</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                         @endforeach
                     </figure>
                 </section>
                 <section class="jc-section">
-                    @php
-                    $judges = App\Models\judgemodel::all();
-                    $infoList = App\Models\configuration_model::all();
-                    @endphp
+
                     <table class="all_tables">
                         <thead>
                             <tr style="font-weight: 550;">

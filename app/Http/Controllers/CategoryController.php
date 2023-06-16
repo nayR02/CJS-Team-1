@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use App\Models\Rounds;
 
 class CategoryController extends Controller
 {
-    //
+    // create
     public function saveCategory(Request $request)
     {
         $roundId = $request->input('rounds');
@@ -20,10 +21,17 @@ class CategoryController extends Controller
         $category->rounds_id = $roundId;
         $category->save();
 
-        // Read the saved category from the database
-        $savedCategory = Categories::find($category->id);
+        return redirect()->route('save.category')->with('success', 'Category saved successfully.');
+    }
+    
+    public function getCategory(Request $request)
+    {
+        $roundInput = $request->input('rounds');
+        $round = Rounds::where('rounds', $roundInput)->firstOrFail();
+        $categories = $round->categories;
 
-        return redirect()->route('save.category')->with('success', 'Category saved successfully.')
-            ->with('category', $savedCategory);
+        return view('/categories/index',
+         ['categories' => $categories],
+          ['rounds' => $round]);
     }
 }

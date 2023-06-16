@@ -504,22 +504,34 @@
     width: calc(100% - 1rem);
     box-shadow: var(--shadow-standard);
 }
-
+/* ----FIGURE---- */
 .rounds__ figure {
     white-space: nowrap;
     margin: 1rem 0;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-around;
     gap: 1rem;
 }
-.rounds-data {
-    text-align: center;
-    width: 100%;
-    padding: 1% 2%;
-    border: 1px solid var(--accent-200);
+.th-round {
+    font-size: 16px !important;
 }
+#tData {
+    font-weight: 550;
+}
+.round-cat > span {
+    font-weight: 550;
+}
+.category-content {
+    display: flex;
+}
+
+.category-content span {
+    margin-right: 0.5ch;
+}
+
+/* ---- */
 .cat__p {
     display: flex;
     align-items: center;
@@ -540,9 +552,9 @@
 .cat-link:hover {
     color: rgba(18, 46, 52, 0.735);
 }
-
 .jc-section {
     width: 100%;
     display: flex;
+    align-items: start;
     gap: 1rem;
 }

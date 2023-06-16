@@ -14,6 +14,7 @@
         @php
         $rounds = App\Models\Rounds::all();
         $eventConfigurations = App\Models\Configuration::all();
+        $categories = App\Models\Categories::all();
         @endphp
         @foreach($eventConfigurations as $key => $eventConfiguration)
         <h1>{{$eventConfiguration->event_name}}</h1>
@@ -54,8 +55,24 @@
                     <div class="btn-parent"><button class="standard-btn" type="submit">Save</button></div>
                 </div>
             </form>
-            <section>
-                
+            <section class="d-flex gap-1 align-items-start">
+                @foreach ($rounds as $round)
+                <table class="all_tables">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="th-round">{{ $round->rounds }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($round->categories as $category)
+                        <tr>
+                            <td>{{ $category->category_name }}</td>
+                            <td>{{ $category->category_value }}%</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endforeach
             </section>
         </section>
     </main>

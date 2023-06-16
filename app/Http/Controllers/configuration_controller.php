@@ -14,7 +14,7 @@ class configuration_controller extends Controller
 
     public function categories()
     {
-        return view('categories');
+        return view('/categories/index');
     }
 
     //  -- Create

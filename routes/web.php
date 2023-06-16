@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('admin-login');
 });
-Route::get('/judges', function () {
-    return view('judges');
-});
+// Route::get('/judges', function () {
+//     return view('judges');
+// });
 Route::get('/test', function () {
     return view('test');
 });
@@ -26,27 +26,32 @@ Route::get('/candidates', function () {
     return view('candidates');
 });
 Route::get('/categories', function () {
-    return view('categories');
+    return view('/categories/index');
 });
+use App\Http\Controllers\configuration_controller;
+use App\Http\Controllers\InputController;
+use App\Http\Controllers\CategoryController;
 
 // Candidates Routes
-Route::post('/candidates', 'App\http\Controllers\configuration_controller@save')->name('candidates');
-Route::get('/candidates', 'App\http\Controllers\configuration_controller@get_info')->name('get_info');
-Route::get('/delete_info/{id}', 'App\http\Controllers\configuration_controller@delete_info')->name('delete_info');
+Route::post('/candidates', [configuration_controller::class, 'save'])->name('candidates');
+Route::get('/candidates', [configuration_controller::class, 'get_info'])->name('get_info');
+Route::get('/delete_info/{id}', [configuration_controller::class, 'delete_info'])->name('delete_info');
 // -- Judges Route
-Route::post('/judges/create', 'App\http\Controllers\configuration_controller@generate')->name('judge.generate');
-Route::get('/judges', 'App\http\Controllers\configuration_controller@judgeRead')->name('judge_info');
-Route::get('/delete_judge/{id}', 'App\http\Controllers\configuration_controller@delete_judge')->name('delete_judge');
+Route::post('/judges/create', [configuration_controller::class, 'generate'])->name('judge.generate');
+Route::get('/judges', [configuration_controller::class, 'judgeRead'])->name('judge_info');
+Route::get('/delete_judge/{id}', [configuration_controller::class, 'delete_judge'])->name('delete_judge');
+
+
 // -- Events Route || Rounds
-Route::post('/add_info', 'App\Http\Controllers\InputController@storeInputs')->name('event.input');
-Route::get('/add_info', 'App\Http\Controllers\InputController@read')->name('read_add_info');
-Route::get('/delete_event/{id}', 'App\Http\Controllers\InputController@delete_event')->name('delete_event');
+Route::post('/add_info', [InputController::class, 'storeInputs'])->name('event.input');
+Route::get('/add_info', [InputController::class, 'read'])->name('read_add_info');
+Route::get('/delete_event/{id}', [InputController::class, 'delete_event'])->name('delete_event');
 
 // -- Login
-Route::post('/admin-login', 'App\Http\Controllers\InputController@save')->name('user');
-Route::get('/admin-login', 'App\Http\Controllers\InputController@adminLogin')->name('admin-user');
-Route::get('logout', 'App\Http\Controllers\InputController@adminLogout')->name('admin-logout');
+Route::get('/admin-login', [InputController::class, 'adminLogin'])->name('admin-user');
+Route::post('/admin-login', [InputController::class, 'save'])->name('user');
+Route::get('logout', [InputController::class, 'adminLogout'])->name('admin-logout');
 
 // -- Category
-Route::post('/categories', 'App\Http\Controllers\CategoryController@saveCategory')->name('save.category');
-// Route::get('/categories', 'App\Http\Controllers\CategoryController@readCategory')->name('read.category');
+Route::post('/categories', [CategoryController::class, 'saveCategory'])->name('save.category');
+Route::get('/categories/{rounds}', [CategoryController::class, 'getCategory'])->name('get.category');
