@@ -16,12 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('admin-login');
 });
-// Route::get('/judges', function () {
-//     return view('judges');
-// });
-Route::get('/test', function () {
-    return view('test');
-});
 Route::get('/candidates', function () {
     return view('candidates');
 });
@@ -55,3 +49,10 @@ Route::get('logout', [InputController::class, 'adminLogout'])->name('admin-logou
 // -- Category
 Route::post('/categories', [CategoryController::class, 'saveCategory'])->name('save.category');
 Route::get('/categories/{rounds}', [CategoryController::class, 'getCategory'])->name('get.category');
+Route::get('/categories/delete/{category_id}', [CategoryController::class, 'deleteCategory'])->name('delete.category');
+Route::put('/categories/{category_id}', [CategoryController::class, 'updateCategory'])->name('update.category');
+
+// Route::put('/categories/{categoryId}', [CategoryController::class, 'updateCategory'])->name('update.category');
+
+// Criteria
+// Route::post('/categories', [CategoryController::class, 'saveCategory'])->name('save.category');

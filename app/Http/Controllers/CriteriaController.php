@@ -11,15 +11,15 @@ class CriteriaController extends Controller
     public function saveCategory(Request $request)
     {
         $categoryId = $request->input('categories');
-        $categoryName = $request->input('criteria_name');
-        $categoryValue = $request->input('criteria_value');
+        $criteriaName = $request->input('criteria_name');
+        $criteriaValue = $request->input('criteria_value');
 
-        $category = new Criteria();
-        $category->category_name = $categoryName;
-        $category->category_value = $categoryValue;
-        $category->rounds_id = $categoryId;
-        $category->save();
+        $criteria = new Criteria();
+        $criteria->criteria_name = $criteriaName;
+        $criteria->criteria_value = $criteriaValue;
+        $criteria->category_id = $categoryId;
+        $criteria->save();
 
-        return redirect()->route('save.category')->with('success', 'Category saved successfully.');
+        return redirect()->route('save.criteria')->with('criteria', 'Criteria saved successfully.');
     }
 }

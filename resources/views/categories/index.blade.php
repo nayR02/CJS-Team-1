@@ -30,13 +30,12 @@
         </script>
         @endif
         <section class="round-data-parent">
-            <form class="second-form" action="{{route('save.category')}}" method="POST">
+            <form class="second-form" action="{{('categories')}}" method="POST">
                 @csrf
                 <div class="categoryContainer" id="categoryContainer">
                     <div class="block-inp select-sec">
-                        <label for="rounds">Rounds</label>
                         <select name="rounds" id="rounds">
-                            <option selected>Choose Round</option>
+                            <option selected>Select Round</option>
                             @foreach ($rounds as $roundKey => $round)
                             @isset($round)
                             <option value="{{$round->id}}">{{$round->rounds}}</option>
@@ -55,25 +54,73 @@
                     <div class="btn-parent"><button class="standard-btn" type="submit">Save</button></div>
                 </div>
             </form>
-            <section class="d-flex gap-1 align-items-start">
-                @foreach ($rounds as $round)
-                <table class="all_tables">
-                    <thead>
-                        <tr>
-                            <th colspan="2" class="th-round">{{ $round->rounds }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($round->categories as $category)
-                        <tr>
-                            <td>{{ $category->category_name }}</td>
-                            <td>{{ $category->category_value }}%</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @endforeach
-            </section>
+            <form class="third-form" action="">
+                @csrf
+                <div>
+                    <select name="" id="">
+                        <option selected>Select Category</option>
+                        <option value="">test</option>
+                        <option value="">test</option>
+                        <option value="">test</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="text">
+                    <label for="">Criteria Name</label>
+                </div>
+                <div>
+                    <input type="number">
+                    <label for="">Percentage Value</label>
+                </div>
+                <div>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </section>
+        <section class="data-table-down gap-1">
+            @foreach ($rounds as $round)
+            <table class="all_tables" style="white-space: nowrap;">
+                <thead>
+                    <tr>
+                        <th colspan="4" class="th-round">{{ $round->rounds }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $count = 1;
+                    @endphp
+                    @foreach ($round->categories as $category)
+                    <tr>
+                        <td class="dialogue"><i>Category {{$count}}</i><span>Click Category Data to Update</span></td>
+                        <td class="td-wtform">
+                            <form class="edit-frm" action="{{ route('update.category', ['category_id' => $category->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="text" name="category_name" value="{{ $category->category_name }}">
+                                <button type="submit"><i class="fa-solid fa-check-double"></i></button>
+                            </form>
+                        </td>
+                        <td class="td-wtform">
+                            <form class="edit-frm" action="{{ route('update.category', ['category_id' => $category->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="number" name="category_value" value="{{$category->category_value}}">
+                                <button type="submit"><i class="fa-solid fa-check-double"></i></button>
+                            </form>
+                        </td>
+                        <td class="d-flex align-items-center gap-1">
+                            <a class="delete" href="{{ route('delete.category', ['category_id' => $category->id]) }}"><i class="fa-solid fa-eraser"></i></a>
+                        </td>
+                    </tr>
+                    @php
+                    $count++;
+                    @endphp
+                    @endforeach
+                </tbody>
+
+            </table>
+            @endforeach
+
         </section>
     </main>
     </section>
