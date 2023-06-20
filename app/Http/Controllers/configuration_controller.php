@@ -47,16 +47,24 @@ class configuration_controller extends Controller
         return redirect('candidates');
     }
     // -- candidates Read
-    public function get_info()
+    public function get_info(Request $request)
     {
+        $user = $request->session()->get('user');
         $getInfo = configuration_model::all();
-        return view('candidates', ['infoList' => $getInfo]);
+        if (!$user) {
+            return view('/admin-login');
+        }  
+        return view('candidates', ['infoList' => $getInfo],['user' => $user]);
     }
     // judge Read
-    public function judgeRead()
+    public function judgeRead(Request $request)
     {
+        $user = $request->session()->get('user');
         $judge = judgemodel::all();
-        return view('judges', ['judges' => $judge]);
+        if (!$user) {
+            return view('/admin-login');
+        }   
+        return view('judges', ['judges' => $judge],['user' => $user]);
     }
 
 

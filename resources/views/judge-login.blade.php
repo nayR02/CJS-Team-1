@@ -7,19 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo asset('/assets/css/style.css') ?>">
 
-    <title>Admin Login Page</title>
+    <title>Judge Login Page</title>
 </head>
 
 <body>
     <div class="hero">
-   
         <div class="form-box">
-        <button class="dropdown-btn">Role &#x25BE;</button>
+            <button class="dropdown-btn">Role &#x25BE;</button>
             <div class="dropdown-content">
                 <a href="admin-login">Admin</a>
                 <a href="judge-login">Judge</a>
             </div>
-            <form method="POST" action="{{route('user')}}" id="login" class="input-group">
+
+            <form method="POST" action="{{route('judge-user')}}" id="login" class="input-group">
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
                 @endif
@@ -28,7 +28,7 @@
                     <img src="/img/logo4.jpg" alt="Form Image">
                     <h2>Miss Q</h2>
                 </header>
-                <center><p>ADMIN</p></center>
+                <center><p>JUDGE</p></center>
                 <input type="text" name="username" class="input-field" placeholder="Username" required>
                 <input type="password" name="password" class="input-field" placeholder="Password" required>
                 @if ($errors->has('error'))
