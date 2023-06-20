@@ -11,14 +11,17 @@
     @section('header')
     @section('.canvas__')
     <main>
+        <button class="backbtn standard-btn">
+            <a href="{{('/add_info')}}"><i class="fa-solid fa-arrow-left"></i></a>
+        </button>
+        <button class="criteriabtn standard-btn"><a href="{{('/criterias')}}">Modify/Add Criterias</a></button>
         @php
         $rounds = App\Models\Rounds::all();
         $eventConfigurations = App\Models\Configuration::all();
         $categories = App\Models\Categories::all();
         @endphp
-        @foreach($eventConfigurations as $key => $eventConfiguration)
-        <h1>{{$eventConfiguration->event_name}}</h1>
-        @endforeach
+        <h3>Add/Edit 
+            Categories</h3>
         @if (session('success'))
         <div id="eventAddedMsg" class="event-alert alert alert-success">
             {{ session('success') }} <i class="fa-solid fa-circle-check"></i>
@@ -52,28 +55,6 @@
                         <label for="catInputValue">Percentage Value</label>
                     </div>
                     <div class="btn-parent"><button class="standard-btn" type="submit">Save</button></div>
-                </div>
-            </form>
-            <form class="third-form" action="">
-                @csrf
-                <div>
-                    <select name="" id="">
-                        <option selected>Select Category</option>
-                        <option value="">test</option>
-                        <option value="">test</option>
-                        <option value="">test</option>
-                    </select>
-                </div>
-                <div>
-                    <input type="text">
-                    <label for="">Criteria Name</label>
-                </div>
-                <div>
-                    <input type="number">
-                    <label for="">Percentage Value</label>
-                </div>
-                <div>
-                    <button type="submit">Save</button>
                 </div>
             </form>
         </section>

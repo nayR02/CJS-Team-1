@@ -8,6 +8,7 @@ use App\Models\AdminModel;
 use Illuminate\Support\Facades\Session;
 use App\Models\Rounds;
 use App\Models\Categories;
+use App\Models\Criteria;
 use Carbon\Carbon;
 
 class InputController extends Controller
@@ -79,6 +80,10 @@ class InputController extends Controller
         $categories = Categories::where('rounds_id', $id)->get();
         foreach ($categories as $category) {
             $category->delete();
+        }
+        $criterias = Criteria::where('categories_id', $id)->get();
+        foreach ($criterias as $criteria) {
+            $criteria->delete();
         }
 
         return redirect('add_info')->with('delete-event', "Event data deleted");

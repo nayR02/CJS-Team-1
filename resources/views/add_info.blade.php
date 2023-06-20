@@ -109,7 +109,7 @@
             @foreach($eventConfigurations as $key => $eventConfiguration)
             <div class="event-content">
                 <div class="delparent">
-                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}"><span>&times;</span></a>
+                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}" onclick="return confirm('Are you sure you want to delete this event?')"><span>&times;</span></a>
                     <div class="quote">Delete this event</div>
                 </div>
                 <div class="event-name">

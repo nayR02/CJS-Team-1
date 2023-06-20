@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Criteria extends Model
 {
     use HasFactory;
-    protected $table = 'criteria';
+    protected $table = 'criterias';
 
     protected $fillable = ['criteria_name', 'criteria_value'];
     
