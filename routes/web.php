@@ -60,3 +60,4 @@ Route::put('/categories/{category_id}', [CategoryController::class, 'updateCateg
 
 // Criteria
 Route::post('/criterias', [CriteriaController::class, 'saveCriteria'])->name('save.criteria');
+Route::get('/criterias/{categories}', [CriteriaController::class, 'getCriteria'])->name('get.criteria');

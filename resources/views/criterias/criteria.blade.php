@@ -28,7 +28,9 @@
                         <select name="categories" id="categoryName">
                             <option selected disabled>Select Category</option>
                             @foreach ($categories as $category)
+                            @isset($category)
                             <option value="{{$category->id}}">{{$category->category_name}}</option>
+                            @endisset
                             @endforeach
                         </select>
                     </div>
@@ -45,7 +47,37 @@
             </form>
         </section>
         <section class="second-section">
-            
+            @foreach ($rounds as $round)
+            <h4>{{ $round->rounds }}</h4>
+            <figure class="fig-box">
+                @foreach ($round->categories as $category)
+                <table class="all_tables">
+                    <thead>
+                        <tr>
+                            <th class="th-border" colspan="4">{{ $category->category_name }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $count = 1; @endphp
+                        @foreach ($category->criteria as $criteria)
+                        <tr>
+                            <td><i>Criteria {{$count}}</i></td>
+                            <td><span>{{ $criteria->criteria_name }}</span> <span>{{ $criteria->criteria_value }}%</span></td>
+                            <td>edit</td>
+                            <td>delete</td>
+                        </tr>
+                        @php $count++; @endphp
+                        @endforeach
+                        @if ($round->categories->isEmpty())
+                        <tr>
+                            <td colspan="{{ count($round->categories) }}">No Data.</td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+                @endforeach
+            </figure>
+            @endforeach
         </section>
     </main>
     @endsection
