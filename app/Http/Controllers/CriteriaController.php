@@ -32,5 +32,17 @@ class CriteriaController extends Controller
 
         return redirect()->route('save.criteria')->with('criteria', 'Criteria saved successfully.');
     }
-  
+
+    public function getCriteria(Request $request)
+    {
+        $categoryInput = $request->input('category_name');
+        $category = Categories::where('category_name', $categoryInput)->firstOrFail();
+        $criterias = $category->criteria;
+
+        return view(
+            '/categories/index',
+            ['criterias' => $criterias,
+            'categories' => $category]
+        );
+    }
 }
