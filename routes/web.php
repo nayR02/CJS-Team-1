@@ -61,6 +61,7 @@ Route::put('/categories/{category_id}', [CategoryController::class, 'updateCateg
 // Criteria
 Route::post('/criterias', [CriteriaController::class, 'saveCriteria'])->name('save.criteria');
 Route::get('/criterias/{categories}', [CriteriaController::class, 'getCriteria'])->name('get.criteria');
+Route::get('/criterias/delete/{criteria_id}', [CriteriaController::class, 'deleteCriteria'])->name('delete.criteria');
 
 //judge
 Route::get('judgelogout', 'App\Http\Controllers\judgeController@judgeLogout')->name('judge-logout');

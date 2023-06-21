@@ -90,7 +90,7 @@
                             </form>
                         </td>
                         <td class="d-flex align-items-center gap-1">
-                            <a class="delete" href="{{ route('delete.category', ['category_id' => $category->id]) }}"><i class="fa-solid fa-eraser"></i></a>
+                            <a class="delete" href="{{ route('delete.category', ['category_id' => $category->id]) }}"><i style="color: rgb(255 0 0 / 0.7);" class="fa-solid fa-eraser"></i></a>
                         </td>
                     </tr>
                     @php

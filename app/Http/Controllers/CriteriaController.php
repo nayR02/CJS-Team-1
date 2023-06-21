@@ -33,16 +33,12 @@ class CriteriaController extends Controller
         return redirect()->route('save.criteria')->with('criteria', 'Criteria saved successfully.');
     }
 
-    public function getCriteria(Request $request)
+    public function deleteCriteria($criteria_id)
     {
-        $categoryInput = $request->input('category_name');
-        $category = Categories::where('category_name', $categoryInput)->firstOrFail();
-        $criterias = $category->criteria;
+        $criteria = Criteria::find($criteria_id);
+        $criteria->delete();
 
-        return view(
-            '/categories/index',
-            ['criterias' => $criterias,
-            'categories' => $category]
-        );
+        return redirect()->route('save.criteria')
+            ->with('success', 'Criteria deleted successfully.');
     }
 }
