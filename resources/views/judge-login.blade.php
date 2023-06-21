@@ -16,10 +16,10 @@
    
         <div class="form-box">
             <div class="button-box">
-                <button class="toggle-btn" onclick="toggleButton(event, 'login')">Login</button>
-                <button class="toggle-btn" onclick="toggleButton(event, 'register')">Register</button>
+                <button class="toggle-btn" onclick="toggleButton(event, 'admin')">Admin</button>
+                <button class="toggle-btn" onclick="toggleButton(event, 'judge')">Judge</button>
             </div>
-            <form method="POST" action="{{route('judge-user')}}" id="register" class="input-group">
+            <form method="POST" action="{{route('judge-user')}}" id="judge" class="input-group">
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
                 @endif
@@ -66,9 +66,9 @@ function toggleButton(event, buttonType) {
 
   sessionStorage.setItem('activeButton', buttonType);
 
-  if (buttonType === 'login') {
+  if (buttonType === 'admin') {
     window.location.href = 'admin-login'; // Redirect to the admin login route
-  } else if (buttonType === 'register') {
+  } else if (buttonType === 'judge') {
     window.location.href = 'judge-login'; // Redirect to the judge login route
   }
 }

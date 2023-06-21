@@ -133,6 +133,7 @@ header img {
 .toggle-btn {
     /* Add your default button styles here */
     background-color: pink;
+    border-radius: 12px;
   }
   
   .toggle-btn.active {
