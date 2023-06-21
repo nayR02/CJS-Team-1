@@ -14,7 +14,6 @@ class CategoryController extends Controller
         $roundId = $request->input('rounds');
         $categoryName = $request->input('category_name');
         $categoryValue = $request->input('category_value');
-        $categoryValue = rtrim($request->input('category_value'), '%');
 
         $category = new Categories();
         $category->category_name = $categoryName;

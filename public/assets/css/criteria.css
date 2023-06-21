@@ -172,7 +172,6 @@ main {
 .all_tables tbody tr:hover {
     filter: brightness(110%);
 }
-
 .second-section {
     display: grid;
     grid-template-columns: 1fr;

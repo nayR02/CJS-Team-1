@@ -22,9 +22,13 @@ Route::get('/candidates', function () {
 Route::get('/categories', function () {
     return view('/categories/index');
 });
+Route::get('/criterias', function () {
+    return view('/criterias/criteria');
+});
 use App\Http\Controllers\configuration_controller;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CriteriaController;
 
 // Candidates Routes
 Route::post('/candidates', [configuration_controller::class, 'save'])->name('candidates');
@@ -55,4 +59,5 @@ Route::put('/categories/{category_id}', [CategoryController::class, 'updateCateg
 // Route::put('/categories/{categoryId}', [CategoryController::class, 'updateCategory'])->name('update.category');
 
 // Criteria
-// Route::post('/categories', [CategoryController::class, 'saveCategory'])->name('save.category');
+Route::post('/criterias', [CriteriaController::class, 'saveCriteria'])->name('save.criteria');
+Route::get('/criterias/{categories}', [CriteriaController::class, 'getCriteria'])->name('get.criteria');

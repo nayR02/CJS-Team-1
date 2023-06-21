@@ -15,6 +15,7 @@
     $categories = App\Models\Categories::all();
     $rounds = App\Models\Rounds::all();
     $infoList = App\Models\configuration_model::all();
+    $criterias = App\Models\Criteria::all();
     @endphp
     <main class="d-flex align-items-center justify-content-center flex-column">
         <!-- Button ka modal || Main Page -->
@@ -109,7 +110,7 @@
             @foreach($eventConfigurations as $key => $eventConfiguration)
             <div class="event-content">
                 <div class="delparent">
-                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}"><span>&times;</span></a>
+                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}" onclick="return confirm('Are you sure you want to delete this event?')"><span>&times;</span></a>
                     <div class="quote">Delete this event</div>
                 </div>
                 <div class="event-name">
@@ -137,18 +138,25 @@
                     </div>
                     <figure>
                         @foreach ($rounds as $round)
+                        @php
+                        $count = 1;
+                        @endphp
                         <table class="all_tables">
                             <thead>
                                 <tr>
-                                    <th colspan="2" class="th-round">{{ $round->rounds }}</th>
+                                    <th colspan="3" class="th-round">{{ $round->rounds }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($round->categories as $category)
                                 <tr>
+                                    <td><i>Category {{$count}}</i></td>
                                     <td>{{ $category->category_name }}</td>
                                     <td>{{ $category->category_value }}%</td>
                                 </tr>
+                                @php
+                                $count++;
+                                @endphp
                                 @endforeach
                             </tbody>
                         </table>
