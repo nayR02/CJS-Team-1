@@ -127,4 +127,15 @@ header {
 }
 header img {
     max-width: 150px;
+    border-radius: 12px;
 }
+
+.toggle-btn {
+    /* Add your default button styles here */
+    background-color: pink;
+  }
+  
+  .toggle-btn.active {
+    background-color: red; /* Example: Set the active button's background color to red */
+  }
+  

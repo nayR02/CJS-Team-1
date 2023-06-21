@@ -16,28 +16,9 @@
    
         <div class="form-box">
             <div class="button-box">
-                <button type="button" class="toggle-btn" onclick="login()"> <a href="admin-login">Admin</a></button>
-                <button type="button" class="toggle-btn" onclick="register()"><a href="judge-login">Judge</a></button>
-                
+                <button class="toggle-btn" onclick="toggleButton(event, 'login')">Login</button>
+                <button class="toggle-btn" onclick="toggleButton(event, 'register')">Register</button>
             </div>
-            <form method="POST" action="{{route('user')}}" id="login" class="input-group">
-                @if(Session::has('fail'))
-                <div class="alert alert-danger">{{Session::get('fail')}}</div>
-                @endif
-                @csrf
-                <header>
-                    <img src="/assets/images/logomain.png" alt="Form Image">
-                </header>
-                <input type="text" name="username" class="input-field" placeholder="Username" required>
-                <input type="password" name="password" class="input-field" placeholder="Password" required>
-                @if ($errors->has('error'))
-                <div class="alert alert-danger error-message">
-                    {{ $errors->first('error') }}
-                </div>
-                @endif
-                <button type="submit" class="submit-btn" id="my-button">Login</button>
-              
-            </form>
             <form method="POST" action="{{route('judge-user')}}" id="register" class="input-group">
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
@@ -59,32 +40,39 @@
         </div>
     </div>
 <script>
-        var x = document.getElementById("login");
-        var y = document.getElementById("register");
-        var z = document.getElementById("btn");
+document.addEventListener("DOMContentLoaded", function() {
+  const activeButton = sessionStorage.getItem('activeButton');
+  if (activeButton) {
+    const buttons = document.querySelectorAll('.toggle-btn');
+    buttons.forEach(button => {
+      if (button.textContent.toLowerCase() === activeButton) {
+        button.classList.add('active');
+      }
+    });
+  }
+});
 
-        var isClicked = localStorage.getItem("isClicked");
-        if (isClicked === "register") {
-            register();
-        } else {
-            login();
-        }
+function toggleButton(event, buttonType) {
+  event.preventDefault(); 
+  const clickedButton = event.target;
+  clickedButton.classList.toggle('active');
 
-        function register() {
-            x.style.left = "-400px";
-            y.style.left = "50px";
-            z.style.left = "110px";
+  const buttons = document.querySelectorAll('.toggle-btn');
+  buttons.forEach(button => {
+    if (button !== clickedButton) {
+      button.classList.remove('active');
+    }
+  });
 
-            localStorage.setItem("isClicked", "register");
-        }
+  sessionStorage.setItem('activeButton', buttonType);
 
-        function login() {
-            x.style.left = "50px";
-            y.style.left = "450px";
-            z.style.left = "0";
+  if (buttonType === 'login') {
+    window.location.href = 'admin-login'; // Redirect to the admin login route
+  } else if (buttonType === 'register') {
+    window.location.href = 'judge-login'; // Redirect to the judge login route
+  }
+}
 
-            localStorage.setItem("isClicked", "login");
-        }
     </script>
 
 
