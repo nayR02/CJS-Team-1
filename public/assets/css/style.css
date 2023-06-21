@@ -103,6 +103,7 @@
     border: 0;
     outline: none;
     border-radius: 30px;
+    transition: 0.3s ease-in-out;
 }
 .submit-btn:hover {
     background: #777;
@@ -136,13 +137,14 @@ header img {
 }
 
 .toggle-btn {
-    background-color: rgba(243, 178, 194, 0.9);
+    background-color: rgba(72, 68, 68, 0.875); 
     border-radius: 12px;
+    color: #ffff;
     
   }
   
   .toggle-btn.active {
-    background-color: rgba(72, 68, 68, 0.875); 
-    color: #ffff;
+    background-color: rgba(243, 178, 194, 0.9);
+    color: #000;
   }
   
