@@ -10,7 +10,7 @@
     <title>Judge Login Page</title>
 </head>
 
-<body>
+<body class="loginpage">
     <div class="hero">
         <div class="form-box">
             <button class="dropdown-btn">Role &#x25BE;</button>

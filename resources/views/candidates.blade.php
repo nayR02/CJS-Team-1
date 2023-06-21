@@ -8,7 +8,7 @@
     </style>
 </head>
 
-<body>
+<body class="__candidates-">
     @section('header')
     @endsection
     @section('.canvas__')

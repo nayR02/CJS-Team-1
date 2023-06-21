@@ -5,27 +5,30 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    color: var(--text-100);
 }
 * ::before, * ::after {
     box-sizing: border-box;
 }
-
-
 :root {
-    --primary-100:#26A69A;
-    --primary-200:#408d86;
-    --primary-300:#cdfaf6;
-    --accent-100:#80CBC4;
-    --accent-200:#43A49B;
-    --text-100:#263339;
-    --text-200:#728f9e;
-    --bg-100:#E0F2F1;
-    --bg-200:#D0EBEA;
-    --bg-300:#FFFFFF;
-      
+    --primary-100:#FFA07A;
+    --primary-200:#de835f;
+    --primary-300:#f8ece6;
+    --accent-100:#FFC0CB;
+    --accent-200:#99616c;
+    --text-100:#333333;
+    --text-200:#5c5c5c;
+    --bg-100:#F5E6CC;
+    --bg-200:#ebdcc2;
+    --bg-300:#c2b49b;
 }
 .__login_page section {
     height: 100vh;
+}
+.logoimg {
+    max-width: 6rem;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
 }
 
 header {
@@ -38,7 +41,7 @@ header {
     justify-content: space-between;
     transition: 0.3s;
 }
-header:hover {
+header:hover {  
     transform: scale(1.01);
     box-shadow: 0px 5px 0px var(--border-blk);
 }
