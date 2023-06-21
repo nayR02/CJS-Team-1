@@ -63,8 +63,7 @@
                         <tr>
                             <td><i>Criteria {{$count}}</i></td>
                             <td><span>{{ $criteria->criteria_name }}</span> <span>{{ $criteria->criteria_value }}%</span></td>
-                            <td>edit</td>
-                            <td>delete</td>
+                            <td><i style="color: green;" class="fa-solid fa-pen-to-square"></i>  <i class="fa-solid fa-trash"></i></td>
                         </tr>
                         @php $count++; @endphp
                         @endforeach
