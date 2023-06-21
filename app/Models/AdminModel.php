@@ -11,4 +11,10 @@ class AdminModel extends Model
 
     protected $table = 'user_admin';
     protected $fillables = ['username', 'password'];
+
+    public function isAdmin()
+    {
+        // Assuming you have a 'role' column in your users table
+        return $this->role === 'admin';
+    }
 }
