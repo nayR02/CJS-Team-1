@@ -43,9 +43,9 @@ public function judgeLog(Request $request)
     }
 }
 
-public function judgeLogout(Request $request)
+public function judgeLogout()
 {
-    $request->session()->forget('judge');
+    Session::forget('user');
     return redirect()->route('judge-user');
 }
 
