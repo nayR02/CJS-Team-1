@@ -61,3 +61,17 @@ Route::put('/categories/{category_id}', [CategoryController::class, 'updateCateg
 // Criteria
 Route::post('/criterias', [CriteriaController::class, 'saveCriteria'])->name('save.criteria');
 Route::get('/criterias/{categories}', [CriteriaController::class, 'getCriteria'])->name('get.criteria');
+
+//judge
+Route::get('judgelogout', 'App\Http\Controllers\judgeController@judgeLogout')->name('judge-logout');
+Route::get('/judge-login', 'App\Http\Controllers\judgeController@judgeLogin')->name('judge-user');
+Route::post('/judge-login', 'App\Http\Controllers\judgeController@judgeLog')->name('judge-Log');
+
+// Route::middleware(['auth.judge'])->group(function () {
+//     Route::get('/judge-dashboard', 'App\Http\Controllers\judgeController@dashboard')->name('judgeDash');
+// });
+Route::middleware(['denyJudgeAccess'])->group(function () {
+    // Judge routes here
+    Route::get('/judge-dashboard', 'App\Http\Controllers\judgeController@dashboard')->name('judgeDash');
+});
+
