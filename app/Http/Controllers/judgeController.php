@@ -11,20 +11,20 @@ class judgeController extends Controller
     
     public function dashboard(Request $request)
 {
-    $judges = $request->session()->get('judge');
-    if (!$judges) {
+    $user = $request->session()->get('judge');
+    if (!$user) {
         return view('/judge-login');
     }   
-    return view('judge-dashboard', ['judge' => $judges]);
+    return view('judge-dashboard', ['judge' => $user]);
 }
 
 public function judgeLogin(Request $request)
 {
-    $judges = $request->session()->get('judge');
-    if(!$judges) {
+    $user = $request->session()->get('judge');
+    if(!$user) {
         return view('/judge-login');
     }
-    return redirect()->route('judgeDash',['judge' => $judges]);
+    return redirect()->route('judgeDash',['judge' => $user]);
 }
 
 public function judgeLog(Request $request)
@@ -48,5 +48,6 @@ public function judgeLogout()
     Session::forget('judge');
     return redirect()->route('judge-user');
 }
+
 
 }

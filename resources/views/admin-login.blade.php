@@ -14,10 +14,10 @@
     <div class="hero">
         <div class="form-box">
             <div class="button-box">
-                <button type="button" class="toggle-btn" onclick="login()"><a href="admin-login">Admin</a></button>
-                <button type="button" class="toggle-btn" onclick="register()"><a href="judge-login">Judge</a></button>
+                <button class="toggle-btn" onclick="toggleButton(event, 'admin')">Admin</button>
+                <button class="toggle-btn" onclick="toggleButton(event, 'judge')">Judge</button>
             </div>
-            <form method="POST" action="{{route('user')}}" id="login" class="input-group">
+            <form method="POST" action="{{route('user')}}" id="admin" class="input-group">
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
                 @endif
@@ -37,35 +37,39 @@
         </div>
     </div>
     <script>
-        var x = document.getElementById("login");
-        var y = document.getElementById("register");
-        var z = document.getElementById("btn");
+document.addEventListener("DOMContentLoaded", function() {
+  const activeButton = sessionStorage.getItem('activeButton');
+  if (activeButton) {
+    const buttons = document.querySelectorAll('.toggle-btn');
+    buttons.forEach(button => {
+      if (button.textContent.toLowerCase() === activeButton) {
+        button.classList.add('active');
+      }
+    });
+  }
+});
 
-        // Check if there is a clicked state stored in the local storage
-        var isClicked = localStorage.getItem("isClicked");
-        if (isClicked === "register") {
-            register();
-        } else {
-            login();
-        }
+function toggleButton(event, buttonType) {
+  event.preventDefault(); 
+  const clickedButton = event.target;
+  clickedButton.classList.toggle('active');
 
-        function register() {
-            x.style.left = "-400px";
-            y.style.left = "50px";
-            z.style.left = "110px";
+  const buttons = document.querySelectorAll('.toggle-btn');
+  buttons.forEach(button => {
+    if (button !== clickedButton) {
+      button.classList.remove('active');
+    }
+  });
 
-            // Store the clicked state in the local storage
-            localStorage.setItem("isClicked", "register");
-        }
+  sessionStorage.setItem('activeButton', buttonType);
 
-        function login() {
-            x.style.left = "50px";
-            y.style.left = "450px";
-            z.style.left = "0";
+  if (buttonType === 'admin') {
+    window.location.href = 'admin-login'; // Redirect to the admin login route
+  } else if (buttonType === 'judge') {
+    window.location.href = 'judge-login'; // Redirect to the judge login route
+  }
+}
 
-            // Store the clicked state in the local storage
-            localStorage.setItem("isClicked", "login");
-        }
     </script>
 
 
