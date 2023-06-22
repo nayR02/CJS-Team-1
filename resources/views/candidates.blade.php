@@ -45,7 +45,7 @@
                 <tbody>
                     @foreach($infoList as $getInfo)
                     <tr>
-                        <td><img class="candidate-img" src="{{ asset('/storage/images/' . $getInfo->profile) }}" alt="Image" onclick="displayImage(this)"></td>
+                        <td><img class="candidate-img" src="{{ asset('storage/images/' . $getInfo->profile) }}" alt="Image" onclick="displayImage(this)"></td>
                         <td>{{$getInfo->candidate_number}}</td>
                         <td>{{$getInfo->candidate_name}}</td>
                         <td>{{$getInfo->municipality}}</td>
