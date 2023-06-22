@@ -6,6 +6,7 @@ use App\Models\judgemodel;
 use Illuminate\Http\Request;
 use App\Models\configuration_model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -25,22 +26,28 @@ class configuration_controller extends Controller
         $municipality = $request->input('municipality');
         $age = $request->input('age');
 
+        $file = $request->file('avatar');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        Storage::disk('public')->put($filename, file_get_contents($file));
+
         $information = new configuration_model; // Replace with your configuration model name
 
         $information->candidate_number = $cnumber;
         $information->candidate_name = $cname;
         $information->municipality = $municipality;
         $information->age = $age;
+        $information->profile = $filename;
 
-        if ($request->hasFile('avatar')) {
-            $image = $request->file('avatar');
-            $imageName = $image->getClientOriginalName();
-            $path = $image->storeAs('assets/images', $imageName);
-            $information->profile = $path;
-        } else {
-            // Handle the case when no image is uploaded
-            $information->profile = "";
-        }
+
+        // if ($request->hasFile('avatar')) {
+        //     $image = $request->file('avatar');
+        //     $imageName = $image->getClientOriginalName();
+        //     $path = $image->storeAs('public/assets/images', $imageName);
+        //     $information->profile = $path;
+        // } else {
+        //     // Handle the case when no image is uploaded
+        //     $information->profile = "";
+        // }
 
         $information->save();
 
