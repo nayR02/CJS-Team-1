@@ -14,17 +14,20 @@ class judgeController extends Controller
     $user = $request->session()->get('judge');
     if (!$user) {
         return view('/judge-login');
-    }   
+    }
+    
     return view('judge-dashboard', ['judge' => $user]);
 }
 
+
 public function judgeLogin(Request $request)
 {
-    $user = $request->session()->get('judge');
-    if(!$user) {
-        return view('/judge-login');
+    if (!$request->session()->has('judge')) {
+        return view('judge-login');
     }
-    return redirect()->route('judgeDash',['judge' => $user]);
+    
+    $user = $request->session()->get('judge');
+    return redirect()->route('judgeDash', ['judge' => $user]);
 }
 
 public function judgeLog(Request $request)
@@ -35,7 +38,7 @@ public function judgeLog(Request $request)
     $judge = judgemodel::where('username', $username)->first();
 
     if ($judge && $judge->password === $password) {
-        $request->session()->put('judge', $judge);
+        $request->session()->put('judge', $judge->judge_name);
         return redirect()->route('judgeDash');
     } else {
         // Invalid credentials, show error message

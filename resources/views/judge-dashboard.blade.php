@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('/assets/css/judge.css')}}">
-    <title>Judge</title>
+    <title>Judge Dashboard</title>
 </head>
 
 <body>
@@ -21,6 +21,9 @@
         <section class="box1">
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
+            </figure>
+            <figure class="judge-Name">
+                <center><h3>Welcome, {{ $judge }}</h3></center>
             </figure>
             <nav class="rounds">
                 <ul>
