@@ -37,32 +37,48 @@
         </section>
         <section class="box2">
             @foreach ($rounds as $round)
-            <h3>{{$round->rounds}}</h3>
-            <form action="">
-                <table class="tevol">
-                    <thead>
-                        <tr>
-                            <th>Candidate #</th>
-                            <th>Candidate Name</th>
-                            @foreach ($round->categories as $category)
-                            <th>{{$category->category_name}} {{$category->category_value}}%</th>
+            <figure class="table-fig">
+                <h3 class="round-name">{{$round->rounds}}</h3>
+                @php
+                $count = 1;
+                @endphp
+                @foreach ($round->categories as $category)
+                <div class="cat-name">
+                    <span><i>Category {{$count}}</i></span>
+                    <legend><strong>{{$category->category_name}} {{$category->category_value}}%</strong></legend>
+                </div>
+                <form action="">
+                    <table class="tevol">
+                        <thead>
+                            <tr>
+                                <th>Candidate #</th>
+                                <th>Candidate Name</th>
+                                @foreach($category->criteria as $criteria)
+                                <th>{{$criteria->criteria_name}} {{$criteria->criteria_value}}%</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($infoList as $getInfo)
+                            <tr>
+                                <td>{{$getInfo->candidate_number}}</td>
+                                <td>{{$getInfo->candidate_name}}</td>
+                                @foreach ($category->criteria as $criteria)
+                                <td><input type="text"></td>
+                                @endforeach
+                            </tr>
                             @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($infoList as $getInfo)
-                        <tr>
-                            <td>{{$getInfo->candidate_number}}</td>
-                            <td>{{$getInfo->candidate_name}}</td>
-                            @foreach ($round->categories as $category)
-                            <td><input type="text"></td>
-                            @endforeach
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <button>submit</button>
-            </form>
+                        </tbody>
+                    </table>
+                    @php
+                    $count++;
+                    @endphp
+                    @endforeach
+                    <div class="tbl-btn">
+                        <button>Submit</button>
+                    </div>
+                </form>
+            </figure>
             @endforeach
         </section>
     </main>
