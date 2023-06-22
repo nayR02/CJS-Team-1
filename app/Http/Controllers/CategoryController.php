@@ -37,6 +37,7 @@ class CategoryController extends Controller
             ['rounds' => $round]
         );
     }
+    
     // delete
     public function deleteCategory($category_id)
     {

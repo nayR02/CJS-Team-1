@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 :root {
-    --primary-100:#FFA07A;
+    /* --primary-100:#FFA07A;
     --primary-200:#de835f;
     --primary-300:#f8ece6;
     --accent-100:#FFC0CB;
@@ -20,7 +20,18 @@
     --text-200:#5c5c5c;
     --bg-100:#F5E6CC;
     --bg-200:#ebdcc2;
-    --bg-300:#c2b49b;
+    --bg-300:#c2b49b; */
+    --primary-100:#BFBFBF;
+    --primary-200:#a2a2a2;
+    --primary-300:#616161;
+    --accent-100:#D4AF37;
+    --accent-200:#6c5400;
+    --text-100:#333333;
+    --text-200:#5c5c5c;
+    --bg-100:#EAEAEA;
+    --bg-200:#e0e0e0;
+    --bg-300:#b8b8b8;
+      
 }
 .__login_page section {
     height: 100vh;

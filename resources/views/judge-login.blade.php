@@ -20,24 +20,6 @@
                 <button type="button" class="toggle-btn" onclick="register()"><a href="judge-login">Judge</a></button>
                 
             </div>
-            <form method="POST" action="{{route('user')}}" id="login" class="input-group">
-                @if(Session::has('fail'))
-                <div class="alert alert-danger">{{Session::get('fail')}}</div>
-                @endif
-                @csrf
-                <header>
-                    <img src="/assets/images/logomain.png" alt="Form Image">
-                </header>
-                <input type="text" name="username" class="input-field" placeholder="Username" required>
-                <input type="password" name="password" class="input-field" placeholder="Password" required>
-                @if ($errors->has('error'))
-                <div class="alert alert-danger error-message">
-                    {{ $errors->first('error') }}
-                </div>
-                @endif
-                <button type="submit" class="submit-btn" id="my-button">Login</button>
-              
-            </form>
             <form method="POST" action="{{route('judge-user')}}" id="register" class="input-group">
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
@@ -54,7 +36,6 @@
                 </div>
                 @endif
                 <button type="submit" class="submit-btn" id="my-button">Login</button>
-               
             </form>
         </div>
     </div>

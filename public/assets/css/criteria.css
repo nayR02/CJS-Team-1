@@ -176,9 +176,9 @@ main {
     max-width: 40%;
 }
 .fig-box {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
     gap: 1rem;
-    align-items: start;
-    justify-content: center;
     width: 100%;
 }
