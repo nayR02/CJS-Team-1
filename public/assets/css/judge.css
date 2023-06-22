@@ -146,6 +146,7 @@ body {
     text-decoration: none;
 }
 .table-fig  {
+    margin: 0 auto;
     text-align: center;
     padding: 2% 6%;
     border-radius: 10px;

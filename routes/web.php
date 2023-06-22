@@ -29,6 +29,7 @@ use App\Http\Controllers\configuration_controller;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\ScoringController;
 
 // Candidates Routes
 Route::post('/candidates', [configuration_controller::class, 'save'])->name('candidates');
@@ -71,6 +72,9 @@ Route::post('/judge-login', 'App\Http\Controllers\judgeController@judgeLog')->na
 Route::middleware(['denyJudgeAccess'])->group(function () {
     // Judge routes here
     Route::get('/judge-dashboard', 'App\Http\Controllers\judgeController@dashboard')->name('judgeDash');
-
+    
 });
 
+
+// Scoring 
+Route::post('/judge-dashboard', [ScoringController::class, 'saveScores'])->name('save.scores');

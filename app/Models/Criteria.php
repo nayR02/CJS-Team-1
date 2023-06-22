@@ -16,4 +16,8 @@ class Criteria extends Model
     {
         return $this->belongsTo(Categories::class);
     }
+    public function scores()
+    {
+        return $this->hasMany(Scoring::class);
+    }
 }
