@@ -68,11 +68,9 @@ Route::get('judgelogout', 'App\Http\Controllers\judgeController@judgeLogout')->n
 Route::get('/judge-login', 'App\Http\Controllers\judgeController@judgeLogin')->name('judge-user');
 Route::post('/judge-login', 'App\Http\Controllers\judgeController@judgeLog')->name('judge-Log');
 
-// Route::middleware(['auth.judge'])->group(function () {
-//     Route::get('/judge-dashboard', 'App\Http\Controllers\judgeController@dashboard')->name('judgeDash');
-// });
 Route::middleware(['denyJudgeAccess'])->group(function () {
     // Judge routes here
     Route::get('/judge-dashboard', 'App\Http\Controllers\judgeController@dashboard')->name('judgeDash');
+
 });
 
