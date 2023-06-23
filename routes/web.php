@@ -25,10 +25,14 @@ Route::get('/categories', function () {
 Route::get('/criterias', function () {
     return view('/criterias/criteria');
 });
+Route::get('/judge-to-admin-results', function () {
+    return view('/judge-to-admin-results');
+});
 use App\Http\Controllers\configuration_controller;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\ScoringController;
 
 // Candidates Routes
 Route::post('/candidates', [configuration_controller::class, 'save'])->name('candidates');
@@ -61,3 +65,20 @@ Route::put('/categories/{category_id}', [CategoryController::class, 'updateCateg
 // Criteria
 Route::post('/criterias', [CriteriaController::class, 'saveCriteria'])->name('save.criteria');
 Route::get('/criterias/{categories}', [CriteriaController::class, 'getCriteria'])->name('get.criteria');
+Route::get('/criterias/delete/{criteria_id}', [CriteriaController::class, 'deleteCriteria'])->name('delete.criteria');
+
+//judge
+Route::get('judgelogout', 'App\Http\Controllers\judgeController@judgeLogout')->name('judge-logout');
+Route::get('/judge-login', 'App\Http\Controllers\judgeController@judgeLogin')->name('judge-user');
+Route::post('/judge-login', 'App\Http\Controllers\judgeController@judgeLog')->name('judge-Log');
+
+Route::middleware(['denyJudgeAccess'])->group(function () {
+    // Judge routes here
+    Route::get('/judge-dashboard', 'App\Http\Controllers\judgeController@dashboard')->name('judgeDash');
+    
+});
+
+
+// Scoring 
+Route::post('/judge-dashboard', [ScoringController::class, 'saveScores'])->name('save.scores');
+Route::get('/judge-to-admin-results', [ScoringController::class, 'viewScores'])->name('view.scores');

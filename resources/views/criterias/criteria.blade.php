@@ -63,7 +63,7 @@
                         <tr>
                             <td><i>Criteria {{$count}}</i></td>
                             <td><span>{{ $criteria->criteria_name }}</span> <span>{{ $criteria->criteria_value }}%</span></td>
-                            <td><i style="color: green;" class="fa-solid fa-pen-to-square"></i>  <i class="fa-solid fa-trash"></i></td>
+                            <td><a href="{{ route('delete.criteria', ['criteria_id' => $criteria->id]) }}"><i style="color: rgb(255 0 0 / 0.7);" class=" fa-solid fa-eraser"></i></a></td>
                         </tr>
                         @php $count++; @endphp
                         @endforeach

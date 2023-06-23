@@ -15,7 +15,7 @@
 <body>
     <header>
         @yield('header')
-        <h1>Miss Q</h1>
+        <img class="logoimg" src="{{asset('/assets/images/logomain.png')}}" alt="">
         <nav class="navigation">
             <button class="tgl-button btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button>
             <ul class="nav-links">
@@ -29,6 +29,7 @@
                         <i class="fa-regular fa-user"></i>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{'/judge-to-admin-results'}}">Results</a></li>
                         <li><a class="dropdown-item" href="{{route('admin-logout')}}">Logout</a></li>
                     </ul>
                 </li>

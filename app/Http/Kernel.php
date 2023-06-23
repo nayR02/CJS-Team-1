@@ -64,4 +64,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    protected $routeMiddleware = [
+        'denyJudgeAccess' => \App\Http\Middleware\AuthCheck::class,
+        // 'auth.judge' => \App\Http\Middleware\AuthMiddleware::class,
+        
+    ];
 }

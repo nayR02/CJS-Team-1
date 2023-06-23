@@ -13,5 +13,9 @@ class configuration_model extends Model
 
     protected $fillable = ['candidate_number', 'candidate_name', 'municipality', 'age', 'profile'];
 
+    public function scores()
+    {
+        return $this->hasMany(Scoring::class);
+    }
 }
 

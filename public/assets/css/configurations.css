@@ -2,16 +2,6 @@
     --border-blk: rgb(0 0 0 / 0.3);
     --label: 13px;
     --shadow-standard: 0px 0px 10px var(--border-blk);
-    --primary-100: #26a69a;
-    --primary-200: #408d86;
-    --primary-300: #cdfaf6;
-    --accent-100: #80cbc4;
-    --accent-200: #43a49b;
-    --text-100: #263339;
-    --text-200: #728f9e;
-    --bg-100: #e0f2f1;
-    --bg-200: #d0ebea;
-    --bg-300: #ffffff;
     --blncd-spacing: 2% 6%;
 }
 
