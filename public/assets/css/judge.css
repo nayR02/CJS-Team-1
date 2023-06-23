@@ -182,3 +182,8 @@ body {
 .round-name {
     font-size: 20spx;
 }
+
+.tevol input::-webkit-inner-spin-button, 
+.tevol input::-webkit-outer-spin-button {
+    display: none;
+}

@@ -25,6 +25,9 @@ Route::get('/categories', function () {
 Route::get('/criterias', function () {
     return view('/criterias/criteria');
 });
+Route::get('/judge-to-admin-results', function () {
+    return view('/judge-to-admin-results');
+});
 use App\Http\Controllers\configuration_controller;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\CategoryController;
@@ -78,3 +81,4 @@ Route::middleware(['denyJudgeAccess'])->group(function () {
 
 // Scoring 
 Route::post('/judge-dashboard', [ScoringController::class, 'saveScores'])->name('save.scores');
+Route::get('/judge-to-admin-results', [ScoringController::class, 'viewScores'])->name('view.scores');

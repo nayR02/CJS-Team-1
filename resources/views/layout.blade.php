@@ -29,6 +29,7 @@
                         <i class="fa-regular fa-user"></i>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{'/judge-to-admin-results'}}">Results</a></li>
                         <li><a class="dropdown-item" href="{{route('admin-logout')}}">Logout</a></li>
                     </ul>
                 </li>

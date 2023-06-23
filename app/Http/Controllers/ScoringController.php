@@ -7,49 +7,36 @@ use App\Models\Scoring;
 use App\Models\Criteria;
 use App\Models\configuration_model;
 
-
 class ScoringController extends Controller
 {
     //
-    // Assuming you have a model for your tabulation table, let's call it "Score".
-
-    // Inside your controller method or route handler:
+    public function results()
+    {
+        return view('judge-to-admin-results');
+    }
     public function saveScores(Request $request)
     {
-        // Retrieve the submitted form data
-        $formInput = $request->all();
-    
-        // Iterate over the submitted form data
-        foreach ($formInput as $key => $data) {
-            if (is_array($data) && strpos($key, 'score') === 0) {
-                // Extract the candidate number and candidate name from the key
-                $candidateNumber = $data['candidate_number'];
-                $candidateName = $data['candidate_name'];
-    
-                // Find the candidate based on the candidate number
-                $candidate = configuration_model::where('candidate_number', $candidateNumber)->first();
-    
-                // Iterate over the scores data
-                foreach ($data['score'] as $criteriaId => $score) {
-                    // Find the criteria based on the criteria ID
-                    $criteria = Criteria::find($criteriaId);
-    
-                    // Create or update the scoring record
-                    $scoring = Scoring::updateOrCreate(
-                        ['candidate_id' => $candidate->id, 'criteria_id' => $criteria->id],
-                        ['score' => $score]
-                    );
-    
-                    // Associate the scoring record with the candidate and criteria
-                    $scoring->candidate()->associate($candidate);
-                    $scoring->criteria()->associate($criteria);
-    
-                    $scoring->save();
-                }
+        $data = $request->except('_token');
+
+        foreach ($data['score'] as $candidateId => $scores) {
+            foreach ($scores as $criteriaId => $score) {
+                $scoringData = new Scoring();
+                $scoringData->candidate_id = $candidateId;
+                $scoringData->criteria_id = $criteriaId;
+                $scoringData->score = $score;
+                $scoringData->save();
             }
         }
-    
-        return view('judge-dashboard')->with('success', 'Scores saved successfully.');
+
+        return view('judge-dashboard')->with('success', 'Scores saved successfully!');
     }
-    
+
+    public function viewScores()
+    {
+        $scores = Scoring::all();
+        $candidates = configuration_model::pluck('candidate_name', 'id');
+        $criteria = Criteria::pluck('criteria_name', 'id');
+
+        return view('judge-to-admin-results', compact('scores', 'candidates', 'criteria'));
+    }
 }

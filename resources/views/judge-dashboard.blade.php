@@ -22,16 +22,12 @@
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
             </figure>
-            <figure class="judge-Name">
-                <center><h3>Welcome, {{ $judge }}</h3></center>
-            </figure>
-            <nav class="rounds">
+            <!-- <nav class="rounds">
                 <ul>
                     <li><a href="#">Rounds</a></li>
                     <li><a href="#">Results</a></li>
                 </ul>
-            </nav>
-
+            </nav> -->
             <button class="logout"><a href="{{route('judge-logout')}}">Logout</a></button>
             <div class="footer">
                 <hr>
@@ -68,7 +64,7 @@
                                 <td>{{$getInfo->candidate_number}}</td>
                                 <td>{{$getInfo->candidate_name}}</td>
                                 @foreach ($category->criteria as $criteria)
-                                <td><input type="number" name="score[{{ $getInfo->candidate_number }}][{{ $criteria->id }}]"></td>
+                                <td><input type="number" name="score[{{$getInfo->id}}][{{$criteria->id}}]"></td>
                                 @endforeach
                             </tr>
                             @endforeach

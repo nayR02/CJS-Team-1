@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,7 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        // Disable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         Schema::create('tabulation', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('candidate_id');
@@ -21,10 +24,12 @@ return new class extends Migration
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
 
-            // Define foreign key constraints
             $table->foreign('candidate_id')->references('id')->on('candidate_configurations')->onDelete('cascade');
             $table->foreign('criteria_id')->references('id')->on('criterias')->onDelete('cascade');
         });
+
+        // Re-enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     /**
@@ -32,7 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
         Schema::dropIfExists('tabulation');
     }
 };
