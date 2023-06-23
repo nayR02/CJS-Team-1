@@ -20,10 +20,18 @@ class configuration_controller extends Controller
     //  -- Create
     public function save(Request $request)
     {
-        $cnumber = $request->input('candidate_number');
-        $cname = $request->input('candidate_name');
-        $municipality = $request->input('municipality');
-        $age = $request->input('age');
+        $validatedData = $request->validate([
+            'candidate_number' => 'required|numeric',
+            'candidate_name' => 'required|string',
+            'municipality' => 'required|string',
+            'age' => 'required|integer', 
+            'avatar' => 'image', // Optional 
+        ]);
+    
+        $cnumber = $validatedData['candidate_number'];
+        $cname = ucfirst($validatedData['candidate_name']);
+        $municipality = ucfirst($validatedData['municipality']);
+        $age = $validatedData['age'];
 
         $information = new configuration_model; // Replace with your configuration model name
 

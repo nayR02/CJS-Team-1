@@ -113,40 +113,52 @@
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Candidate</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form id="imageUploadForm" class="modal-body" action="{{('candidates')}}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="boxparent one">
-                                <div>
-                                    <input type="number" id="candidateNumber" name="candidate_number">
-                                    <label for="candidateNumber">Candidate Number</label>
-                                </div>
-                                <div>
-                                    <input type="text" id="candidateName" name="candidate_name">
-                                    <label for="candidateNumber">Candidate Name</label>
-                                </div>
-                            </div>
-                            <div class="boxparent two">
-                                <div>
-                                    <input type="text" id="municipality" name="municipality">
-                                    <label for="municipality">Municipality</label>
-                                </div>
-                                <div>
-                                    <input type="number" id="age" name="age">
-                                    <label for="age">Age</label>
-                                </div>
-                            </div>
-                            <div class="boxparent three">
-                                <div>
-                                    <input type="file" id="imageInput" name="avatar">
-                                </div>
-                                <div id="previewContainer">
+                        <form id="imageUploadForm" class="modal-body" action="{{ url('candidates') }}" method="POST" enctype="multipart/form-data">
+    @csrf
 
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="standard-btn">Add</button>
-                            </div>
-                        </form>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="boxparent one">
+        <div>
+            <input type="number" id="candidateNumber" name="candidate_number" value="{{ old('candidate_number') }}" required>
+            <label for="candidateNumber">Candidate Number</label>
+        </div>
+        <div>
+            <input type="text" id="candidateName" name="candidate_name" value="{{ old('candidate_name') }}" required>
+            <label for="candidateNumber">Candidate Name</label>
+        </div>
+    </div>
+    <div class="boxparent two">
+        <div>
+            <input type="text" id="municipality" name="municipality" value="{{ old('municipality') }}" required>
+            <label for="municipality">Municipality</label>
+        </div>
+        <div>
+            <input type="number" id="age" name="age" value="{{ old('age') }}" required>
+            <label for="age">Age</label>
+        </div>
+    </div>
+    <div class="boxparent three">
+        <div>
+            <input type="file" id="imageInput" name="avatar">
+        </div>
+        <div id="previewContainer">
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="standard-btn">Add</button>
+    </div>
+</form>
+
                     </div>
                 </div>
         </section>
