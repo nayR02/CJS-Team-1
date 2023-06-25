@@ -159,7 +159,8 @@ section {
 .modal-footer button:focus {
     transform: scale(1.1);
 }
-#flashMessage {
+#flashMessage, 
+#candidateAdded {
     position: absolute;
     top: -2rem;
     left: 50%;

@@ -12,8 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Disable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         Schema::create('tabulation', function (Blueprint $table) {
             $table->id();
@@ -28,8 +26,6 @@ return new class extends Migration
             $table->foreign('criteria_id')->references('id')->on('criterias')->onDelete('cascade');
         });
 
-        // Re-enable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     /**

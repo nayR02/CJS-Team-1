@@ -9,9 +9,8 @@
 </head>
 
 <body class="__add-jdg">
-    @section('header')
     @section('.canvas__')
-    <section>
+    <section class="judge-main">
         @if (session('message'))
         <div id="flashMessage" class="alert alert-danger">
             {{ session('message') }}
@@ -24,7 +23,7 @@
             }, 1500);
         </script>
         @endif
-
+        <div class="d-flex justify-content-start"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
         <form action="{{route('judge.generate') }}" method="POST">
             @csrf
             <div class="boxinput-parent">
@@ -70,7 +69,6 @@
             </tbody>
         </table>
     </section>
-    @endsection
     @endsection
     <script src="https://unpkg.com/vue@3"></script>
     <script>

@@ -438,7 +438,6 @@
 .cat-link{
     text-decoration: none;
     color: var(--text-100);
-    font-weight: 550;
     transition: 0.4s;
 }
 .rounds__ span {
@@ -547,4 +546,18 @@
     display: flex;
     align-items: start;
     gap: 1rem;
+}
+.jc-wrap {
+    background: var(--bg-200);
+    box-shadow: 0px 0px 5px rgb(0 0 0 / 0.3);
+}
+.card-criterias {
+    background: rgba(245, 242, 242, 0.304);
+    border-radius: 10px;
+    padding: 2%;
+    box-shadow: var(--shadow-standard);
+}
+.table-flex {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
