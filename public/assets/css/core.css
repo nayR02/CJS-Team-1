@@ -6,6 +6,7 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     color: var(--text-100);
+    scroll-behavior: smooth;
 }
 * ::before, * ::after {
     box-sizing: border-box;
@@ -21,6 +22,11 @@
     --bg-100:#F5E6CC;
     --bg-200:#ebdcc2;
     --bg-300:#c2b49b;
+    --vue-primary: #409EFF;
+    --vue-success: #67C23A;
+    --vue-warning: #E6A23C;
+    --vue-danger: #F56C6C;
+    --vue-info: #909399;
 }
 .__login_page section {
     height: 100vh;
@@ -147,4 +153,19 @@
 }
 .active i {
     color: var(--primary-100);
+}
+
+
+/*  RESULTS */
+.results-body {
+    --padding: 20px;
+    padding: var(--padding);
+}
+.results-main {
+    border-radius: 10px;
+    position: relative;
+    padding: 2% 6%;
+    background: var(--bg-100);
+    height: calc(97vh - var(--padding));
+    overflow-y: scroll;
 }

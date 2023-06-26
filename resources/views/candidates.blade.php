@@ -127,7 +127,7 @@
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Candidate</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form id="imageUploadForm" class="modal-body" action="{{('candidates')}}" method="POST" enctype="multipart/form-data">
+                        <form id="imageUploadForm" class="modal-body" action="{{('candidates')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
                             @csrf
                             <div class="boxparent one">
                                 <div>

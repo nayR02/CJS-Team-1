@@ -34,7 +34,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <section class="modal-in">
                         <span>Add Event</span>
-                        <form id="eventForm" action="{{('/add_info')}}" method="POST">
+                        <form id="eventForm" action="{{('/add_info')}}" method="POST" autocomplete="off">
                             @csrf
                             <div class="my-2 boxparent">
                                 <div class="boxinput">

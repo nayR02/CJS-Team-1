@@ -19,4 +19,7 @@ class Categories extends Model
     public function criteria() {
         return $this->hasMany(Criteria::class);
     }
+    public function scoring() {
+        return $this->hasMany(Scoring::class);
+    }
 }

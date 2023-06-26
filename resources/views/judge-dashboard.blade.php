@@ -22,12 +22,6 @@
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
             </figure>
-            <!-- <nav class="rounds">
-                <ul>
-                    <li><a href="#">Rounds</a></li>
-                    <li><a href="#">Results</a></li>
-                </ul>
-            </nav> -->
             <button class="logout"><a href="{{route('judge-logout')}}">Logout</a></button>
             <div class="footer">
                 <hr>
@@ -46,7 +40,7 @@
                     <span><i>Category {{$count}}</i></span>
                     <legend><strong>{{$category->category_name}} {{$category->category_value}}%</strong></legend>
                 </div>
-                <form action="{{route('save.scores')}}" method="POST">
+                <form id="save-scores-form" method="POST">
                     @csrf
                     <table class="tevol">
                         <thead>
@@ -75,13 +69,38 @@
                     @endphp
                     @endforeach
                     <div class="tbl-btn">
-                        <button type="submit" >Submit</button>
+                        <button type="submit">Submit</button>
                     </div>
                 </form>
             </figure>
             @endforeach
         </section>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#save-scores-form').submit(function(event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: "{{ route('save.scores') }}",
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    $('#save-scores-form')[0].reset();
+                    alert('Saved!');
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    alert("Error");
+                }
+            });
+        });
+        
+    </script>
+
+
 </body>
 
 </html>

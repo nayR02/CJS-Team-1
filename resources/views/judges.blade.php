@@ -24,7 +24,7 @@
         </script>
         @endif
         <div class="d-flex justify-content-start"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
-        <form action="{{route('judge.generate') }}" method="POST">
+        <form action="{{route('judge.generate') }}" method="POST" autocomplete="off">
             @csrf
             <div class="boxinput-parent">
                 <div class="boxinput">
