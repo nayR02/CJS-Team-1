@@ -24,17 +24,32 @@
             </span>
             <button type="button" class="btn-close close-canvas" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+        <div class="loader-container">
+    <div class="loader">
+      <div class="dot-spinner">
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+      </div>
+    </div>
+  </div>
         <div class="offcanvas-body d-flex justify-content-center pt-5">
-            <nav class="navigation">
-                <ul class="nav-links text-center">
-                    <li class="active"><a href="{{('/add_info')}}"><i class="me-1 fa-solid fa-sliders"></i>Configurations</a></li>
-                    <li class="active"><a href="{{('/judges')}}"><i class="me-1 fa-solid fa-gavel"></i>Judges</a></li>
-                    <li class="active"><a href="{{('/candidates')}}"><i class="me-1 fa-solid fa-crown"></i>Candidates</a></li>
-                    <li class="active"><a href="{{('/judge-to-admin-results')}}"><i class="me-1 fa-solid fa-square-poll-vertical"></i>Results</a></li>
-                    <li class="exception"><a class="dropdown-item" href="{{route('admin-logout')}}"><i class="me-1 fa-solid fa-right-from-bracket"></i>Logout</a></li>
-                </ul>
-            </nav>
-        </div>
+  <nav class="navigation">
+    <ul class="nav-links text-center">
+      <li class="active"><a href="{{('/add_info')}}" onclick="showLoader()"><i class="me-1 fa-solid fa-sliders"></i>Configurations</a></li>
+      <li class="active"><a href="{{('/judges')}}" onclick="showLoader()"><i class="me-1 fa-solid fa-gavel"></i>Judges</a></li>
+      <li class="active"><a href="{{('/candidates')}}" onclick="showLoader()"><i class="me-1 fa-solid fa-crown"></i>Candidates</a></li>
+      <li class="active"><a href="{{('/judge-to-admin-results')}}" onclick="showLoader()"><i class="me-1 fa-solid fa-square-poll-vertical"></i>Results</a></li>
+      <li class="exception"><a class="dropdown-item" href="{{route('admin-logout')}}" onclick="showLoader()"><i class="me-1 fa-solid fa-right-from-bracket"></i>Logout</a></li>
+    </ul>
+  </nav>
+</div>
+
         <div class="off-canvas-footer">
             <img src="{{asset('/assets/images/cjs.png')}}" alt="">
         </div>
@@ -62,6 +77,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    function showLoader() {
+      var loaderContainer = document.querySelector('.loader-container');
+
+      loaderContainer.style.display = 'flex';
+
+      setTimeout(function() {
+        loaderContainer.style.display = 'none';
+      }, 1000);
+    }
+
+    showLoader();
+  </script>
 </body>
 
 </html>
