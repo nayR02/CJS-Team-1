@@ -21,7 +21,7 @@
             <button class="backbtn standard-btn">
                 <a href="{{('/categories')}}"><i class="fa-solid fa-arrow-left"></i></a>
             </button>
-            <form class="criForm" action="{{('criterias')}}" method="POST">
+            <form class="criForm" action="{{('criterias')}}" method="POST" autocomplete="off">
                 @csrf
                 <div class="criteriaContainer" id="criteriaContainer">
                     <div class="block-inp select-sec">

@@ -51,7 +51,7 @@ class configuration_controller extends Controller
 
         $information->save();
 
-        return redirect('candidates');
+        return redirect('candidates')->with('candidate', 'Candidate Information Added');
     }
     // -- candidates Read
     public function get_info(Request $request)

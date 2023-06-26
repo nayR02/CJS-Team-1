@@ -33,7 +33,8 @@
     @endphp
     <main class="d-flex align-items-center justify-content-center flex-column">
         <!-- Button ka modal || Main Page -->
-        <section class="mainchild">
+        <section class="mainchild" style="position: relative;">
+            <div style="position: absolute; top: 5px; left: 5px;" class="mt-2 ms-2"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
             <section class="buttonparent">
                 <div class="abs-btn">
                     <button id="customModal" class="create-btn animated heartBeat" onclick="openModal()">Create Event</button>
@@ -47,7 +48,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <section class="modal-in">
                         <span>Add Event</span>
-                        <form id="eventForm" action="{{('/add_info')}}" method="POST">
+                        <form id="eventForm" action="{{('/add_info')}}" method="POST" autocomplete="off">
                             @csrf
                             <div class="my-2 boxparent">
                                 <div class="boxinput">
@@ -146,83 +147,107 @@
                     <i class="fa-solid fa-clock mx-1"></i>
                 </div>
                 <section class="rounds__">
-                    <div class="cat__p">
-                        <span><a href="{{('/categories')}}" class="cat-link me-2">Categories & Criteria</a></span>
-                        <i class="fa-solid fa-hand-point-left"></i>
-                    </div>
-                    <figure>
-                        @foreach ($rounds as $round)
-                        @php
-                        $count = 1;
-                        @endphp
+                    <figure class="d-flex justify-content-center align-items-center flex-column card-round">
+                        <div class="cat__p">
+                            <span><a href="{{('/categories')}}" class="cat-link me-2">Categories</a></span>
+                            <i class="fa-solid fa-hand-point-left"></i>
+                        </div>
+                        <div class="table-flex d-flex align-items-start gap-3">
+                            @foreach ($rounds as $round)
+                            @php
+                            $count = 1;
+                            @endphp
+                            <table class="all_tables">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="th-round">{{ $round->rounds }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($round->categories as $category)
+                                    <tr>
+                                        <td><i>Category {{$count}}</i></td>
+                                        <td class="category-hover">{{ $category->category_name }}</td>
+                                        <td>{{ $category->category_value }}%</td>
+                                    </tr>
+                                    @php
+                                    $count++;
+                                    @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endforeach
+                        </div>
+                    </figure>
+                    <figure class="d-flex justify-content-center align-items-center flex-column text-center card-criterias">
+                        <span><a href="{{('/criterias')}}" class="cat-link">Criterias &rarr;</a></span>
+                        <div class="table-flex d-flex align-items-start gap-3">
+                            @foreach($categories as $category)
+                            <table class="all_tables">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">{{$category->category_name}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($category->criteria as $criteria)
+
+                                    <tr>
+                                        <td>{{$criteria->criteria_name}} {{$criteria->criteria_value}}%</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endforeach
+                        </div>
+                    </figure>
+                </section>
+                <section style="width: 100%;" class="jc-wrap d-flex flex-column justify-content-center text-center p-5 my-3">
+                    <h3>Judges And Candidates Overview</h3>
+                    <div class="jc-section">
                         <table class="all_tables">
                             <thead>
-                                <tr>
-                                    <th colspan="3" class="th-round">{{ $round->rounds }}</th>
+                                <tr style="font-weight: 550;">
+                                    <td>#</td>
+                                    <td>Judges</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($round->categories as $category)
+                                @php
+                                $counter = 1;
+                                @endphp
+                                @foreach ($judges as $judge)
                                 <tr>
-                                    <td><i>Category {{$count}}</i></td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ $category->category_value }}%</td>
+                                    <td>{{$counter}}</td>
+                                    <td>{{$judge->judge_name}}</td>
                                 </tr>
                                 @php
-                                $count++;
+                                $counter++;
                                 @endphp
                                 @endforeach
                             </tbody>
                         </table>
-                        @endforeach
-                    </figure>
-                </section>
-                <section class="jc-section">
-
-                    <table class="all_tables">
-                        <thead>
-                            <tr style="font-weight: 550;">
-                                <td>#</td>
-                                <td>Judges</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $counter = 1;
-                            @endphp
-                            @foreach ($judges as $judge)
-                            <tr>
-                                <td>{{$counter}}</td>
-                                <td>{{$judge->judge_name}}</td>
-                            </tr>
-                            @php
-                            $counter++;
-                            @endphp
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <table class="all_tables">
-                        <thead>
-                            <tr style="font-weight: 550;">
-                                <td>Candidate #</td>
-                                <td>Candidates</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($infoList as $getInfo)
-                            <tr>
-                                <td>{{$getInfo->candidate_number}}</td>
-                                <td>{{$getInfo->candidate_name}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        <table class="all_tables">
+                            <thead>
+                                <tr style="font-weight: 550;">
+                                    <td>Candidate #</td>
+                                    <td>Candidates</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($infoList as $getInfo)
+                                <tr>
+                                    <td>{{$getInfo->candidate_number}}</td>
+                                    <td>{{$getInfo->candidate_name}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                 </section>
             </div>
             @endforeach
             @endif
-
-
+            </div>
         </section>
 
 

@@ -187,3 +187,12 @@ body {
 .tevol input::-webkit-outer-spin-button {
     display: none;
 }
+@media only screen and (max-width: 768px) {
+    .main-sec {
+        display: flex;
+        flex-direction: column;
+    }
+    .box1 {
+        display: none;
+    }
+}

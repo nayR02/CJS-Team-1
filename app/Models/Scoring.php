@@ -20,4 +20,5 @@ class Scoring extends Model
     {
         return $this->belongsTo(Criteria::class);
     }
+    
 }
