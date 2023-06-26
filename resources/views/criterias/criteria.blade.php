@@ -39,7 +39,7 @@
                         <label for="criInputName">Criteria Name</label>
                     </div>
                     <div class="cstm-box block-inp catVal-sec">
-                        <input type="number" id="criInputValue" name="criteria_value" required>
+                        <input type="number" id="criInputValue" name="criteria_value" min="1" max="100" required>
                         <label for="criInputValue">Percentage Value</label>
                     </div>
                     <div class="btn-parent"><button class="standard-btn" type="submit">Save</button></div>

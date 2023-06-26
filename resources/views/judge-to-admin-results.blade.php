@@ -43,6 +43,8 @@
         </div>
         <!-- === -->
         <section class="testgrid mt-5" id="scores-container">
+
+            <!--  -->
             @foreach ($scores as $score)
             <div class="card mb-2">
                 <table class="col">
@@ -54,13 +56,17 @@
                     <tbody>
                         <tr>
                             <td>{{$candidates[$score->candidate_id]}}</td>
+                            <td>{{$categories[$score->category_id]}}</td>
                             <td>{{$score->score}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             @endforeach
+
+            <!--  -->
         </section>
+        <!-- --- -->
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
