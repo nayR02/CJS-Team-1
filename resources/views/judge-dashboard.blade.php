@@ -69,13 +69,27 @@
                     @endphp
                     @endforeach
                     <div class="tbl-btn">
-                        <button type="submit">Submit</button>
+                        <button type="submit" onclick="swalTest()">Submit</button>
                     </div>
                 </form>
             </figure>
             @endforeach
         </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function swalTest() {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                text: 'You can view your submitted scores on results panel',
+                title: 'Ratings Submitted',
+                showConfirmButton: false,
+                timer: 1600,
+                heightAuto: false
+            })
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $('#save-scores-form').submit(function(event) {
@@ -89,7 +103,6 @@
                 data: formData,
                 success: function(response) {
                     $('#save-scores-form')[0].reset();
-                    alert('Saved!');
                 },
                 error: function(xhr) {
                     console.error(xhr.responseText);
@@ -97,7 +110,6 @@
                 }
             });
         });
-        
     </script>
 
 
