@@ -38,17 +38,6 @@ class configuration_controller extends Controller
         $information->age = $age;
         $information->profile = $filename;
 
-
-        // if ($request->hasFile('avatar')) {
-        //     $image = $request->file('avatar');
-        //     $imageName = $image->getClientOriginalName();
-        //     $path = $image->storeAs('public/assets/images', $imageName);
-        //     $information->profile = $path;
-        // } else {
-        //     // Handle the case when no image is uploaded
-        //     $information->profile = "";
-        // }
-
         $information->save();
 
         return redirect('candidates')->with('candidate', 'Candidate Information Added');
@@ -94,28 +83,6 @@ class configuration_controller extends Controller
         $judges = judgemodel::all();
         return view('judge', compact('judges'));
     }
-
-    // public function generate(Request $request)
-    // {
-    //     $request->validate([
-    //         'judge_name' => 'required',
-    //     ]);
-
-    //     $judgename = $request->input('judge_name');
-    //     $username = $this->generateUsername($judgename);
-    //     $password = $this->generatePassword();
-
-    //     $judgeList = new judgemodel();
-    //     $judgeList->judge_name = $judgename;
-    //     $judgeList->username = $username;
-    //     $judgeList->password = ($password);
-    //     $judgeList->save();
-
-    //     $judges = judgemodel::all();
-    //     return view('judges', compact('judges'));
-    // }
-
-
 
     public function generate(Request $request)
     {
@@ -164,11 +131,7 @@ class configuration_controller extends Controller
         }
         return $password;
     }
-    // ========================
-
-
-
-    //  --------------------------------------------------------------------
+   
 
 
 
