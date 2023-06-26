@@ -125,9 +125,27 @@
             @foreach($eventConfigurations as $key => $eventConfiguration)
             <div class="event-content">
                 <div class="delparent">
-                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}" onclick="return confirm('Are you sure you want to delete this event?')"><span>&times;</span></a>
+                    <a class="event-x" onclick="deleteEvent()"><span>&times;</span></a>
                     <div class="quote">Delete this event</div>
                 </div>
+                <script>
+                    function deleteEvent() {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Delete this event',
+                            text: 'Deleting this event will remove all related event data from the database',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, delete it!',
+                            confirmButtonColor: '#d33',
+                            cancelButtonText: 'No, cancel!',
+                            cancelButtonColor: '#3085d6',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{ route('delete_event',['id' => $eventConfiguration->id]) }}";
+                            }
+                        });
+                    }
+                </script>
                 <div class="event-name">
                     <span class="mb-2">{{ $eventConfiguration->event_name }}</span>
                 </div>
@@ -254,6 +272,7 @@
     </main>
     @endsection
     @endsection
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
     function showLoader() {

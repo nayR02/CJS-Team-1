@@ -17,7 +17,7 @@
     @endphp
     <main class="results-main">
         <!-- === -->
-        <div style="position: fixed; top: 20px; left: 20px;" class="mt-2 ms-2"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
+        <div style="z-index: 10; position: fixed; top: 20px; left: 20px;" class="mt-2 ms-2"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
         <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
             <div class="offcanvas-header d-flex justify-content-center gap-2 flex-column" style="position: relative;">
                 <img src="{{asset('/assets/images/logomain.png')}}" alt="">
@@ -63,42 +63,6 @@
         </section>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: '/judge-to-admin-results', 
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    var scores = response.scores;
-                    var candidates = response.candidates;
-                    var criteria = response.criteria;
-
-                    var scoresContainer = $('#scores-container');
-                    scoresContainer.empty();
-
-                    $.each(scores, function(index, score) {
-                        var card = $('<div class="card mb-2"></div>');
-                        var table = $('<table class="col"></table>');
-                        var thead = $('<thead></thead>');
-                        var tbody = $('<tbody></tbody>');
-                        var criteriaName = $('<tr><th>' + criteria[score.criteria_id] + '</th></tr>');
-                        var candidateRow = $('<tr><td>' + candidates[score.candidate_id] + '</td><td>' + score.score + '</td></tr>');
-
-                        thead.append(criteriaName);
-                        tbody.append(candidateRow);
-                        table.append(thead);
-                        table.append(tbody);
-                        card.append(table);
-                        scoresContainer.append(card);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-    </script> -->
 </body>
 
 </html>

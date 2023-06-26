@@ -11,18 +11,6 @@
 <body class="__add-jdg">
     @section('.canvas__')
     <section class="judge-main">
-        @if (session('message'))
-        <div id="flashMessage" class="alert alert-danger">
-            {{ session('message') }}
-        </div>
-        <script>
-            const flashMessage = document.getElementById('flashMessage');
-
-            setTimeout(() => {
-                flashMessage.style.display = 'none';
-            }, 1500);
-        </script>
-        @endif
         <div class="d-flex justify-content-start"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
         <form action="{{route('judge.generate') }}" method="POST" autocomplete="off">
             @csrf
@@ -61,6 +49,11 @@
                     <td>
                         <a href="{{route('delete_judge',['id' => $judge->id])}}"><button class="btn btn-danger">Delete</button></a>
                     </td>
+                    <script>
+                        function deleteJudge() {
+                            
+                        }
+                    </script>
                 </tr>
                 @php
                 $counter++;
@@ -70,6 +63,7 @@
         </table>
     </section>
     @endsection
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/vue@3"></script>
     <script>
         Vue.createApp({
