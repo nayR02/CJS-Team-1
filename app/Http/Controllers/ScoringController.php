@@ -70,17 +70,17 @@ class ScoringController extends Controller
         $scores = Scoring::all();
         $candidates = configuration_model::pluck('candidate_name', 'id');
         $criteria = Criteria::pluck('criteria_name', 'id');
-        $categories = Categories::pluck('category_name', 'id');
+        $category = Categories::pluck('category_name', 'id');
 
         if (request()->ajax()) {
             return response()->json([
                 'scores' => $scores,
                 'candidates' => $candidates,
                 'criteria' => $criteria,
-                'categories' => $categories,
+                'categories' => $category,
             ]);
         }
 
-        return view('judge-to-admin-results', compact('scores', 'candidates', 'criteria', 'categories'));
+        return view('judge-to-admin-results', compact('scores', 'candidates', 'criteria', 'category'));
     }
 }
