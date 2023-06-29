@@ -48,7 +48,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <section class="modal-in">
                         <span>Add Event</span>
-                        <form id="eventForm" action="{{('/add_info')}}" method="POST" autocomplete="off">
+                        <form id="eventForm" method="POST" autocomplete="off">
                             @csrf
                             <div class="my-2 boxparent">
                                 <div class="boxinput">
@@ -84,9 +84,31 @@
                                 </div>
                             </div>
                             <div class="">
-                                <button class="standard-btn" id="submitButton" type="submit">Save</button>
+                                <button class="standard-btn" id="submitButton" type="submit" onclick="saveEvent()">Save</button>
                             </div>
                             <script>
+                                function saveEvent() {
+                                    event.preventDefault(); 
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        title: 'Double check details',
+                                        text: 'Event configurations cannot be edited',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Proceed',
+                                        confirmButtonColor: '#d33',
+                                        cancelButtonText: 'Go back',
+                                        cancelButtonColor: '#3085d6',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById('eventForm').addEventListener('submit', function(event) {
+                                                this.action = '/add_info';
+                                                this.submit();
+                                            });
+                                            document.getElementById('eventForm').submit();
+                                        }
+                                    });
+                                }
+
                                 function rounds() {
                                     event.preventDefault();
                                     const dInputs = [];

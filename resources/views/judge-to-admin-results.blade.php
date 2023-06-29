@@ -17,7 +17,7 @@
     @endphp
     <main class="results-main">
         <!-- === -->
-        <div style="z-index: 10; position: fixed; top: 20px; left: 20px;" class="mt-2 ms-2"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
+        <div style="z-index: 10; position: fixed; top: 20px; left: 20px; box-shadow: 0px 0px 5px rgb( 0 0 0 / 0.3); border-radius: inherit;" class="mt-2 ms-2"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
         <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
             <div class="offcanvas-header d-flex justify-content-center gap-2 flex-column" style="position: relative;">
                 <img src="{{asset('/assets/images/logomain.png')}}" alt="">
@@ -42,25 +42,69 @@
             </div>
         </div>
         <!-- === -->
-        <section class="testgrid mt-5" id="scores-container">
+        <section class="testgrid mt-5" id="score-table-container">
+            <h3>Score Cards</h3>
+            <!--  -->
+            @php
+            $candidateIds = [];
+            $count = 1;
+            @endphp
+
             @foreach ($scores as $score)
-            <div class="card mb-2">
-                <table class="col">
+            @if (!in_array($score->candidate_id, $candidateIds))
+            @php
+            $candidateIds[] = $score->candidate_id;
+            @endphp
+
+            <!-- Close previous table if it exists -->
+            @if ($loop->iteration > 1)
+            </tbody>
+            </table>
+            </div>
+            @endif
+
+            <!-- Start new score card -->
+            <div class="score-card">
+                <h5 class="candidate-name">{{$candidates[$score->candidate_id]}}</h5>
+                <hr>
+                <table class="score-table">
+                    @endif
+
+                    @if ($loop->iteration == 1 || $score->categories_id != $scores[$loop->index - 1]->categories_id)
+                    <!-- Display category name -->
                     <thead>
                         <tr>
-                            <th>{{$criteria[$score->criteria_id]}}</th>
+                            <th class="category-name" colspan="2">{{$category[$score->categories_id]}}</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="criteria-score-container">
+                        @endif
+
+                        <!-- Display criteria and score -->
                         <tr>
-                            <td>{{$candidates[$score->candidate_id]}}</td>
-                            <td>{{$score->score}}</td>
+                            <td class="px-2">{{$criteria[$score->criteria_id]}}</td>
+                            <td class="px-2">{{$score->score}}</td>
                         </tr>
+
+                        @php
+                        $count++;
+                        @endphp
+                        @endforeach
+
+                        <!-- Close the last table if scores exist -->
+                        @if (!empty($scores))
                     </tbody>
                 </table>
             </div>
-            @endforeach
+            @endif
+
+
+
+
+
+            <!--  -->
         </section>
+        <!-- --- -->
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>

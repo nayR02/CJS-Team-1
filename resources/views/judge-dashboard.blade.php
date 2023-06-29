@@ -58,12 +58,12 @@
                 $count = 1;
                 @endphp
                 @foreach ($round->categories as $category)
-                <div class="cat-name">
-                    <span><i>Category {{$count}}</i></span>
-                    <legend><strong>{{$category->category_name}} {{$category->category_value}}%</strong></legend>
-                </div>
                 <form id="save-scores-form" method="POST">
                     @csrf
+                    <div class="cat-name">
+                        <span><i>Category {{$count}}</i></span>
+                        <legend><strong>{{$category->category_name}} {{$category->category_value}}%</strong></legend>
+                    </div>
                     <table class="tevol">
                         <thead>
                             <tr>
@@ -80,7 +80,7 @@
                                 <td>{{$getInfo->candidate_number}}</td>
                                 <td>{{$getInfo->candidate_name}}</td>
                                 @foreach ($category->criteria as $criteria)
-                                <td><input type="number" name="score[{{$getInfo->id}}][{{$criteria->id}}]"></td>
+                                <td><input type="number" name="score[{{$getInfo->id}}][{{$criteria->id}}][{{$category->id}}]"></td>
                                 @endforeach
                             </tr>
                             @endforeach
@@ -133,8 +133,6 @@
             });
         });
     </script>
-
-
 </body>
 
 </html>

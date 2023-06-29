@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Rounds;
 use App\Models\Categories;
 use App\Models\Criteria;
+use App\Models\Scoring;
 use Carbon\Carbon;
 
 class InputController extends Controller
