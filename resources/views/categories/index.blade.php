@@ -51,7 +51,7 @@
                         <label for="catInputName">Category Name</label>
                     </div>
                     <div class="cstm-box block-inp catVal-sec">
-                        <input type="number" id="catInputValue" name="category_value" required>
+                        <input type="number" id="catInputValue" name="category_value" min="1" max="100" required>
                         <label for="catInputValue">Percentage Value</label>
                     </div>
                     <div class="btn-parent"><button class="standard-btn" type="submit">Save</button></div>

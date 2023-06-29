@@ -22,16 +22,16 @@ class configuration_controller extends Controller
     public function save(Request $request)
     {
         $validatedData = $request->validate([
-            'candidate_number' => 'required|numeric',
+            'candidate_number' => 'required|numeric|unique:candidate_configurations',
             'candidate_name' => 'required|string',
             'municipality' => 'required|string',
             'age' => 'required|integer', 
-            'avatar' => 'image', // Optional 
+            'avatar' => 'required|image', 
         ]);
     
         $cnumber = $validatedData['candidate_number'];
-        $cname = ucfirst($validatedData['candidate_name']);
-        $municipality = ucfirst($validatedData['municipality']);
+        $cname = ucwords($validatedData['candidate_name']);
+        $municipality = ucwords($validatedData['municipality']);
         $age = $validatedData['age'];
 
         $file = $request->file('avatar');
@@ -45,21 +45,12 @@ class configuration_controller extends Controller
         $information->municipality = $municipality;
         $information->age = $age;
         $information->profile = $filename;
-
-
-        // if ($request->hasFile('avatar')) {
-        //     $image = $request->file('avatar');
-        //     $imageName = $image->getClientOriginalName();
-        //     $path = $image->storeAs('public/assets/images', $imageName);
-        //     $information->profile = $path;
-        // } else {
-        //     // Handle the case when no image is uploaded
-        //     $information->profile = "";
-        // }
-
+        
+        
         $information->save();
 
-        return redirect('candidates');
+        $sortedCandidates = configuration_model::orderBy('candidate_number')->get();
+        return redirect('candidates');  
     }
     // -- candidates Read
     public function get_info(Request $request)
@@ -102,28 +93,6 @@ class configuration_controller extends Controller
         $judges = judgemodel::all();
         return view('judge', compact('judges'));
     }
-
-    // public function generate(Request $request)
-    // {
-    //     $request->validate([
-    //         'judge_name' => 'required',
-    //     ]);
-
-    //     $judgename = $request->input('judge_name');
-    //     $username = $this->generateUsername($judgename);
-    //     $password = $this->generatePassword();
-
-    //     $judgeList = new judgemodel();
-    //     $judgeList->judge_name = $judgename;
-    //     $judgeList->username = $username;
-    //     $judgeList->password = ($password);
-    //     $judgeList->save();
-
-    //     $judges = judgemodel::all();
-    //     return view('judges', compact('judges'));
-    // }
-
-
 
     public function generate(Request $request)
     {

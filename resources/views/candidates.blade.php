@@ -116,16 +116,11 @@
                         <form id="imageUploadForm" class="modal-body" action="{{ url('candidates') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
-    @if ($errors->any())
+    @if ($errors->has('candidate_number'))
         <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            {{ $errors->first('candidate_number') }}
         </div>
     @endif
-
     <div class="boxparent one">
         <div>
             <input type="number" id="candidateNumber" name="candidate_number" value="{{ old('candidate_number') }}" required>
@@ -148,7 +143,7 @@
     </div>
     <div class="boxparent three">
         <div>
-            <input type="file" id="imageInput" name="avatar">
+            <input type="file" id="imageInput" name="avatar" required>
         </div>
         <div id="previewContainer">
             
