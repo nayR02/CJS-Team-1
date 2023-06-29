@@ -52,11 +52,10 @@
     <script>
       function confirmLogout() {
         Swal.fire({
-          title: 'Confirmation',
           text: 'Are you sure you want to log out?',
-          icon: 'question',
+          icon: 'warning',
           showCancelButton: true,
-          confirmButtonText: 'Yes, logout',
+          confirmButtonText: 'Logout',
           cancelButtonText: 'Cancel'
         }).then((result) => {
           if (result.isConfirmed) {
