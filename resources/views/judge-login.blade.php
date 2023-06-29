@@ -19,7 +19,7 @@
                 <button class="toggle-btn" onclick="toggleButton(event, 'admin')">Admin</button>
                 <button class="toggle-btn" onclick="toggleButton(event, 'judge')">Judge</button>
             </div>
-            <form method="POST" action="{{route('judge-user')}}" id="judge" class="input-group">
+            <form method="POST" action="{{route('judge-user')}}" id="judge" class="input-group" autocomplete="off">
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
                 @endif

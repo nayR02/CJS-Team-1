@@ -15,6 +15,7 @@
 
     <main>
         <section>
+            <div class="d-flex justify-content-start mb-3"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
             <!-- Button trigger modal -->
             <button type="button" class="standard-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Add Candidates
@@ -28,6 +29,19 @@
 
                 setTimeout(() => {
                     flashMessage.style.display = 'none';
+                }, 1500);
+            </script>
+            @endif
+            @if (session('candidate'))
+            <div id="candidateAdded" class="event-alert alert alert-success">
+                <p>
+                    {{session ('candidate')}}
+                    <i class="fa-solid fa-circle-check"></i>
+                </p>
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('candidateAdded').style.display = 'none';
                 }, 1500);
             </script>
             @endif
@@ -113,6 +127,7 @@
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Candidate</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+<<<<<<< HEAD
                         <form id="imageUploadForm" class="modal-body" action="{{ url('candidates') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
@@ -153,6 +168,35 @@
         <button type="submit" class="standard-btn">Add</button>
     </div>
 </form>
+=======
+                        <form id="imageUploadForm" class="modal-body" action="{{('candidates')}}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                            @csrf
+                            <div class="boxparent one">
+                                <div>
+                                    <input type="number" id="candidateNumber" name="candidate_number">
+                                    <label for="candidateNumber">Candidate Number</label>
+                                </div>
+                                <div>
+                                    <input type="text" id="candidateName" name="candidate_name">
+                                    <label for="candidateNumber">Candidate Name</label>
+                                </div>
+                            </div>
+                            <div class="boxparent two">
+                                <div>
+                                    <input type="text" id="municipality" name="municipality">
+                                    <label for="municipality">Municipality</label>
+                                </div>
+                                <div>
+                                    <input type="number" id="age" name="age">
+                                    <label for="age">Age</label>
+                                </div>
+                            </div>
+                            <div class="boxparent three">
+                                <div>
+                                    <input type="file" id="imageInput" name="avatar">
+                                </div>
+                                <div id="previewContainer">
+>>>>>>> df03bfeb30d546dd5422eea5d060189255ea7cd2
 
                     </div>
                 </div>

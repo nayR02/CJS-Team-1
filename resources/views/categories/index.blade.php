@@ -33,7 +33,7 @@
         </script>
         @endif
         <section class="round-data-parent">
-            <form class="second-form" action="{{('categories')}}" method="POST">
+            <form class="second-form" action="{{('categories')}}" method="POST" autocomplete="off">
                 @csrf
                 <div class="categoryContainer" id="categoryContainer">
                     <div class="block-inp select-sec">

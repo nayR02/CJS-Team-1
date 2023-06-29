@@ -117,7 +117,7 @@ span {
     position: absolute;
 }
 .error-message {
-    color: red;
+    color: rgb(255, 255, 255);
     font-size: 12px;
     margin: 5px auto;
     display: flex;
@@ -147,4 +147,8 @@ header img {
     background: linear-gradient(to right, #eaabc0c8, #f269a9);
     color: #000000;
   }
+  
+/*loader*/
+
+  
   

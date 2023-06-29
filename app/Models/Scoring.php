@@ -15,9 +15,13 @@ class Scoring extends Model
     {
         return $this->belongsTo(configuration_model::class);
     }
-
     public function criteria()
     {
         return $this->belongsTo(Criteria::class);
+    }
+    public function categories() 
+    {
+        return $this->belongsTo(Categories::class);
+        
     }
 }

@@ -51,6 +51,10 @@ class configuration_controller extends Controller
 
         $sortedCandidates = configuration_model::orderBy('candidate_number')->get();
         return redirect('candidates');  
+
+        $information->save();
+
+        return redirect('candidates')->with('candidate', 'Candidate Information Added');
     }
     // -- candidates Read
     public function get_info(Request $request)
@@ -85,7 +89,7 @@ class configuration_controller extends Controller
     {
         $delete_judge = judgemodel::find($id);
         $delete_judge->delete();
-        return redirect('judges')->with('message', "Jugde's Data Deleted");
+        return redirect('judges')->with('deleted', "Jugde's Data Deleted");
     }
     // --- ++++++++++++++++++++++++++++++++++++ ----------------------------
     public function showForm()
@@ -141,11 +145,7 @@ class configuration_controller extends Controller
         }
         return $password;
     }
-    // ========================
-
-
-
-    //  --------------------------------------------------------------------
+   
 
 
 

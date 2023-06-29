@@ -8,6 +8,20 @@
 </head>
 
 <body class="__add-con">
+<div class="loader-container">
+    <div class="loader">
+      <div class="dot-spinner">
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+      </div>
+    </div>
+  </div>
     @section('header')
     @section('.canvas__')
     @php
@@ -19,7 +33,8 @@
     @endphp
     <main class="d-flex align-items-center justify-content-center flex-column">
         <!-- Button ka modal || Main Page -->
-        <section class="mainchild">
+        <section class="mainchild" style="position: relative;">
+            <div style="position: absolute; top: 5px; left: 5px;" class="mt-2 ms-2"><button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button></div>
             <section class="buttonparent">
                 <div class="abs-btn">
                     <button id="customModal" class="create-btn animated heartBeat" onclick="openModal()">Create Event</button>
@@ -33,7 +48,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <section class="modal-in">
                         <span>Add Event</span>
-                        <form id="eventForm" action="{{('/add_info')}}" method="POST">
+                        <form id="eventForm" method="POST" autocomplete="off">
                             @csrf
                             <div class="my-2 boxparent">
                                 <div class="boxinput">
@@ -69,9 +84,31 @@
                                 </div>
                             </div>
                             <div class="">
-                                <button class="standard-btn" id="submitButton" type="submit">Save</button>
+                                <button class="standard-btn" id="submitButton" type="submit" onclick="saveEvent()">Save</button>
                             </div>
                             <script>
+                                function saveEvent() {
+                                    event.preventDefault(); 
+                                    Swal.fire({
+                                        icon: 'warning',
+                                        title: 'Double check details',
+                                        text: 'Event configurations cannot be edited',
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Proceed',
+                                        confirmButtonColor: '#d33',
+                                        cancelButtonText: 'Go back',
+                                        cancelButtonColor: '#3085d6',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            document.getElementById('eventForm').addEventListener('submit', function(event) {
+                                                this.action = '/add_info';
+                                                this.submit();
+                                            });
+                                            document.getElementById('eventForm').submit();
+                                        }
+                                    });
+                                }
+
                                 function rounds() {
                                     event.preventDefault();
                                     const dInputs = [];
@@ -111,9 +148,27 @@
             @foreach($eventConfigurations as $key => $eventConfiguration)
             <div class="event-content">
                 <div class="delparent">
-                    <a class="event-x" href="{{ route('delete_event',['id' => $eventConfiguration->id]) }}" onclick="return confirm('Are you sure you want to delete this event?')"><span>&times;</span></a>
+                    <a class="event-x" onclick="deleteEvent()"><span>&times;</span></a>
                     <div class="quote">Delete this event</div>
                 </div>
+                <script>
+                    function deleteEvent() {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Delete this event',
+                            text: 'Deleting this event will remove all related event data from the database',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, delete it!',
+                            confirmButtonColor: '#d33',
+                            cancelButtonText: 'No, cancel!',
+                            cancelButtonColor: '#3085d6',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "{{ route('delete_event',['id' => $eventConfiguration->id]) }}";
+                            }
+                        });
+                    }
+                </script>
                 <div class="event-name">
                     <span class="mb-2">{{ $eventConfiguration->event_name }}</span>
                 </div>
@@ -133,90 +188,128 @@
                     <i class="fa-solid fa-clock mx-1"></i>
                 </div>
                 <section class="rounds__">
-                    <div class="cat__p">
-                        <span><a href="{{('/categories')}}" class="cat-link me-2">Categories & Criteria</a></span>
-                        <i class="fa-solid fa-hand-point-left"></i>
-                    </div>
-                    <figure>
-                        @foreach ($rounds as $round)
-                        @php
-                        $count = 1;
-                        @endphp
+                    <figure class="d-flex justify-content-center align-items-center flex-column card-round">
+                        <div class="cat__p">
+                            <span><a href="{{('/categories')}}" class="cat-link me-2">Categories &rarr;</a></span>
+                            <i class="fa-solid fa-hand-point-left"></i>
+                        </div>
+                        <div class="table-flex d-flex align-items-start gap-3">
+                            @foreach ($rounds as $round)
+                            @php
+                            $count = 1;
+                            @endphp
+                            <table class="all_tables">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" class="th-round">{{ $round->rounds }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($round->categories as $category)
+                                    <tr>
+                                        <td><i>Category {{$count}}</i></td>
+                                        <td class="category-hover">{{ $category->category_name }}</td>
+                                        <td>{{ $category->category_value }}%</td>
+                                    </tr>
+                                    @php
+                                    $count++;
+                                    @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endforeach
+                        </div>
+                    </figure>
+                    <figure class="d-flex justify-content-center align-items-center flex-column text-center card-criterias">
+                        <span><a href="{{('/criterias')}}" class="cat-link">Criterias &rarr;</a></span>
+                        <div class="table-flex d-flex align-items-start gap-3">
+                            @foreach($categories as $category)
+                            <table class="all_tables">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">{{$category->category_name}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($category->criteria as $criteria)
+
+                                    <tr>
+                                        <td>{{$criteria->criteria_name}} {{$criteria->criteria_value}}%</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endforeach
+                        </div>
+                    </figure>
+                </section>
+                <section style="width: 100%;" class="jc-wrap d-flex flex-column justify-content-center text-center p-5 my-3">
+                    <h3>Judges And Candidates Overview</h3>
+                    <div class="jc-section">
                         <table class="all_tables">
                             <thead>
-                                <tr>
-                                    <th colspan="3" class="th-round">{{ $round->rounds }}</th>
+                                <tr style="font-weight: 550;">
+                                    <td>#</td>
+                                    <td>Judges</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($round->categories as $category)
+                                @php
+                                $counter = 1;
+                                @endphp
+                                @foreach ($judges as $judge)
                                 <tr>
-                                    <td><i>Category {{$count}}</i></td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ $category->category_value }}%</td>
+                                    <td>{{$counter}}</td>
+                                    <td>{{$judge->judge_name}}</td>
                                 </tr>
                                 @php
-                                $count++;
+                                $counter++;
                                 @endphp
                                 @endforeach
                             </tbody>
                         </table>
-                        @endforeach
-                    </figure>
-                </section>
-                <section class="jc-section">
-
-                    <table class="all_tables">
-                        <thead>
-                            <tr style="font-weight: 550;">
-                                <td>#</td>
-                                <td>Judges</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                            $counter = 1;
-                            @endphp
-                            @foreach ($judges as $judge)
-                            <tr>
-                                <td>{{$counter}}</td>
-                                <td>{{$judge->judge_name}}</td>
-                            </tr>
-                            @php
-                            $counter++;
-                            @endphp
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <table class="all_tables">
-                        <thead>
-                            <tr style="font-weight: 550;">
-                                <td>Candidate #</td>
-                                <td>Candidates</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($infoList as $getInfo)
-                            <tr>
-                                <td>{{$getInfo->candidate_number}}</td>
-                                <td>{{$getInfo->candidate_name}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        <table class="all_tables">
+                            <thead>
+                                <tr style="font-weight: 550;">
+                                    <td>Candidate #</td>
+                                    <td>Candidates</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($infoList as $getInfo)
+                                <tr>
+                                    <td>{{$getInfo->candidate_number}}</td>
+                                    <td>{{$getInfo->candidate_name}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                 </section>
             </div>
             @endforeach
             @endif
-
-
+            </div>
         </section>
 
 
     </main>
     @endsection
     @endsection
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+    function showLoader() {
+      var loaderContainer = document.querySelector('.loader-container');
+
+      loaderContainer.style.display = 'flex';
+
+      setTimeout(function() {
+        loaderContainer.style.display = 'none';
+      }, 1000);
+    }
+
+    showLoader();
+  </script>
     <script>
         function openModal() {
             var modal = document.getElementById("myModal");

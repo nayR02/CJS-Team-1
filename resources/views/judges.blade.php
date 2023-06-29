@@ -4,28 +4,16 @@
 <head>
     @extends('layout')
     @section('title', 'Admin Configuration || Events')
-    <link rel="stylesheet" href="{{asset('/assets/css/judges.css')}}">
-
+    <link rel="stylesheet" href="{{ asset('/assets/css/judges.css') }}">
 </head>
 
 <body class="__add-jdg">
-    @section('header')
     @section('.canvas__')
-    <section>
-        @if (session('message'))
-        <div id="flashMessage" class="alert alert-danger">
-            {{ session('message') }}
+    <section class="judge-main">
+        <div class="d-flex justify-content-start">
+            <button class="canvas-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="fa-solid fa-bars"></i></button>
         </div>
-        <script>
-            const flashMessage = document.getElementById('flashMessage');
-
-            setTimeout(() => {
-                flashMessage.style.display = 'none';
-            }, 1500);
-        </script>
-        @endif
-
-        <form action="{{route('judge.generate') }}" method="POST">
+        <form action="{{ route('judge.generate') }}" method="POST" autocomplete="off">
             @csrf
             <div class="boxinput-parent">
                 <div class="boxinput">
@@ -55,13 +43,37 @@
                 @endphp
                 @foreach($judges as $judge)
                 <tr>
-                    <td>{{$counter}}</td>
-                    <td>{{$judge->judge_name}}</td>
-                    <td>{{$judge->username}}</td>
-                    <td class="hide">{{$judge->password}}</td>
+                    <td>{{ $counter }}</td>
+                    <td>{{ $judge->judge_name }}</td>
+                    <td>{{ $judge->username }}</td>
+                    <td class="hide">{{ $judge->password }}</td>
                     <td>
-                        <a href="{{route('delete_judge',['id' => $judge->id])}}"><button class="btn btn-danger">Delete</button></a>
+                        <button class="btn btn-danger" onclick="deleteJudge()">Delete</button>
                     </td>
+                    <script>
+                        function deleteJudge() {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 800,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Judge Data Deleted'
+                            })
+
+                            setTimeout(function() {
+                                window.location.href = "{{route('delete_judge',['id' => $judge->id])}}";
+                            }, 900);
+                        }
+                    </script>
                 </tr>
                 @php
                 $counter++;
@@ -71,26 +83,8 @@
         </table>
     </section>
     @endsection
-    @endsection
-    <script src="https://unpkg.com/vue@3"></script>
-    <script>
-        Vue.createApp({
-            data() {
-                return {
-                    className: 'fa-solid fa-lock'
-                };
-            },
-            methods: {
-                changeClass() {
-                    if (this.className === 'fa-solid fa-lock') {
-                        this.className = 'fa-solid fa-lock-open';
-                    } else {
-                        this.className = 'fa-solid fa-lock';
-                    }
-                }
-            }
-        }).mount('.all_tables');
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 
 </html>

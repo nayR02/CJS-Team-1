@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('/assets/css/judge.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <title>Judge Dashboard</title>
 </head>
 
@@ -22,13 +23,30 @@
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
             </figure>
-            <!-- <nav class="rounds">
-                <ul>
-                    <li><a href="#">Rounds</a></li>
-                    <li><a href="#">Results</a></li>
-                </ul>
-            </nav> -->
-            <button class="logout"><a href="{{route('judge-logout')}}">Logout</a></button>
+            <button class="logout" onclick="confirmLogout()"
+            style=" cursor: pointer;"
+            >
+                Logout
+            </button>
+
+            <script>
+                function confirmLogout() {
+                    Swal.fire({
+                        text: 'Are you sure you want to log out?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Logout',
+                        cancelButtonText: 'Cancel',
+                        heightAuto: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Proceed with logout
+                            window.location.href = "{{ route('judge-logout') }}";
+                        }
+                    });
+                }
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
             <div class="footer">
                 <hr>
                 <p>Computerized Judging System</p>
@@ -42,12 +60,12 @@
                 $count = 1;
                 @endphp
                 @foreach ($round->categories as $category)
-                <div class="cat-name">
-                    <span><i>Category {{$count}}</i></span>
-                    <legend><strong>{{$category->category_name}} {{$category->category_value}}%</strong></legend>
-                </div>
-                <form action="{{route('save.scores')}}" method="POST">
+                <form id="save-scores-form" method="POST">
                     @csrf
+                    <div class="cat-name">
+                        <span><i>Category {{$count}}</i></span>
+                        <legend><strong>{{$category->category_name}} {{$category->category_value}}%</strong></legend>
+                    </div>
                     <table class="tevol">
                         <thead>
                             <tr>
@@ -64,7 +82,7 @@
                                 <td>{{$getInfo->candidate_number}}</td>
                                 <td>{{$getInfo->candidate_name}}</td>
                                 @foreach ($category->criteria as $criteria)
-                                <td><input type="number" name="score[{{$getInfo->id}}][{{$criteria->id}}]"></td>
+                                <td><input type="number" min="75" max="100" name="score[{{$getInfo->id}}][{{$criteria->id}}][{{$category->id}}]"></td>
                                 @endforeach
                             </tr>
                             @endforeach
@@ -75,13 +93,48 @@
                     @endphp
                     @endforeach
                     <div class="tbl-btn">
-                        <button type="submit" >Submit</button>
+                        <button type="submit" onclick="swalTest()">Submit</button>
                     </div>
                 </form>
             </figure>
             @endforeach
         </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function swalTest() {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                text: 'You can view your submitted scores on results panel',
+                title: 'Ratings Submitted',
+                showConfirmButton: false,
+                timer: 1600,
+                heightAuto: false
+            })
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#save-scores-form').submit(function(event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: "{{ route('save.scores') }}",
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    $('#save-scores-form')[0].reset();
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                    alert("Error");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

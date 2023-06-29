@@ -118,7 +118,7 @@ body {
     padding: 3px;
 }
 .tevol input {
-    max-width: 50%;
+    max-width: 100%;
     text-align: center;
     outline: none;
     border: none;
@@ -186,4 +186,13 @@ body {
 .tevol input::-webkit-inner-spin-button, 
 .tevol input::-webkit-outer-spin-button {
     display: none;
+}
+@media only screen and (max-width: 768px) {
+    .main-sec {
+        display: flex;
+        flex-direction: column;
+    }
+    .box1 {
+        display: none;
+    }
 }

@@ -176,7 +176,7 @@ main {
 }
 #eventAddedMsg {
     position: absolute;
-    top: 0%;
+    top: 15%;
     right: 27%;
     transform: translate(-50%, -50%);
 }
