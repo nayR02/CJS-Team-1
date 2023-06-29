@@ -175,7 +175,7 @@
                 <section class="rounds__">
                     <figure class="d-flex justify-content-center align-items-center flex-column card-round">
                         <div class="cat__p">
-                            <span><a href="{{('/categories')}}" class="cat-link me-2">Categories</a></span>
+                            <span><a href="{{('/categories')}}" class="cat-link me-2">Categories &rarr;</a></span>
                             <i class="fa-solid fa-hand-point-left"></i>
                         </div>
                         <div class="table-flex d-flex align-items-start gap-3">

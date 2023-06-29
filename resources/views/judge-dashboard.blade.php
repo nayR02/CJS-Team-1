@@ -29,6 +29,35 @@
             </div>
         </section>
         <section class="box2">
+            <button class="circle" id="customModal" onclick="openModal()">?</button>
+            <!--  -->
+            <figure id="myModal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <div class="modal-in">
+
+                    </div>
+
+                </div>
+            </figure>
+            <script>
+                function openModal() {
+                    var modal = document.getElementById("myModal");
+                    var modalContent = document.querySelector(".modal-content");
+                    modal.style.display = "block";
+                    void modalContent.offsetWidth;
+                    modalContent.style.opacity = 1;
+                }
+
+                function closeModal() {
+                    var modal = document.getElementById("myModal");
+                    var modalContent = document.querySelector(".modal-content");
+                    modalContent.style.opacity = 0;
+                    setTimeout(function() {
+                        modal.style.display = "none";
+                    }, 300);
+                }
+            </script>
             @foreach ($rounds as $round)
             <figure class="table-fig">
                 <h3 class="round-name">{{$round->rounds}}</h3>
@@ -58,7 +87,7 @@
                                 <td>{{$getInfo->candidate_number}}</td>
                                 <td>{{$getInfo->candidate_name}}</td>
                                 @foreach ($category->criteria as $criteria)
-                                <td><input type="number" name="score[{{$getInfo->id}}][{{$criteria->id}}][{{$category->id}}]"></td>
+                                <td><input type="number" min="75" max="100" name="score[{{$getInfo->id}}][{{$criteria->id}}][{{$category->id}}]"></td>
                                 @endforeach
                             </tr>
                             @endforeach
