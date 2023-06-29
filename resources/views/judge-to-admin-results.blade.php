@@ -33,7 +33,7 @@
                         <li class="active"><a href="{{('/judges')}}"><i class="me-1 fa-solid fa-gavel"></i>Judges</a></li>
                         <li class="active"><a href="{{('/candidates')}}"><i class="me-1 fa-solid fa-crown"></i>Candidates</a></li>
                         <li class="active"><a href="{{('/judge-to-admin-results')}}"><i class="me-1 fa-solid fa-square-poll-vertical"></i>Results</a></li>
-                        <li class="exception"><a class="dropdown-item" href="{{route('admin-logout')}}"><i class="me-1 fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                        <li class="exception"><a href="#" class="dropdown-item" onclick="confirmLogout()"><i class="me-1 fa-solid fa-right-from-bracket"></i>Logout</a></li>
                     </ul>
                 </nav>
             </div>

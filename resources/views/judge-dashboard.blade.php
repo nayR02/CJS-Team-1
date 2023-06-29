@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('/assets/css/judge.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <title>Judge Dashboard</title>
 </head>
 
@@ -22,7 +23,28 @@
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
             </figure>
-            <button class="logout"><a href="{{route('judge-logout')}}">Logout</a></button>
+            <button class="logout" onclick="confirmLogout()">
+                Logout
+            </button>
+
+            <script>
+                function confirmLogout() {
+                    Swal.fire({
+                        title: 'Confirmation',
+                        text: 'Are you sure you want to log out?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, logout',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Proceed with logout
+                            window.location.href = "{{ route('judge-logout') }}";
+                        }
+                    });
+                }
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
             <div class="footer">
                 <hr>
                 <p>Computerized Judging System</p>

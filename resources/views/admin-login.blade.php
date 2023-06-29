@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?php echo asset('/assets/css/style.css') ?>">
 
-  <title> Login Page</title>
+  <title>Login Page</title>
 </head>
 
 <body class="loginpage__">
@@ -17,7 +17,7 @@
         <button class="toggle-btn" onclick="toggleButton(event, 'admin')">Admin</button>
         <button class="toggle-btn" onclick="toggleButton(event, 'judge')">Judge</button>
       </div>
-      <form method="POST" action="{{route('user')}}" id="admin" class="input-group">
+      <form method="POST" action="{{route('user')}}" id="admin" class="input-group" onsubmit="showLoader()">
         @if(Session::has('fail'))
         <div class="alert alert-danger">{{Session::get('fail')}}</div>
         @endif
@@ -36,6 +36,7 @@
       </form>
     </div>
   </div>
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const activeButton = sessionStorage.getItem('activeButton');
@@ -70,8 +71,6 @@
       }
     }
   </script>
-
-
 </body>
 
 </html>

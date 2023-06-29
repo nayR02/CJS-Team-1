@@ -8,6 +8,20 @@
 </head>
 
 <body class="__add-con">
+<div class="loader-container">
+    <div class="loader">
+      <div class="dot-spinner">
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+      </div>
+    </div>
+  </div>
     @section('header')
     @section('.canvas__')
     @php
@@ -282,6 +296,19 @@
     @endsection
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+    function showLoader() {
+      var loaderContainer = document.querySelector('.loader-container');
+
+      loaderContainer.style.display = 'flex';
+
+      setTimeout(function() {
+        loaderContainer.style.display = 'none';
+      }, 1000);
+    }
+
+    showLoader();
+  </script>
     <script>
         function openModal() {
             var modal = document.getElementById("myModal");
