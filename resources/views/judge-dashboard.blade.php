@@ -23,19 +23,21 @@
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
             </figure>
-            <button class="logout" onclick="confirmLogout()">
+            <button class="logout" onclick="confirmLogout()"
+            style=" cursor: pointer;"
+            >
                 Logout
             </button>
 
             <script>
                 function confirmLogout() {
                     Swal.fire({
-                        title: 'Confirmation',
                         text: 'Are you sure you want to log out?',
-                        icon: 'question',
+                        icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonText: 'Yes, logout',
-                        cancelButtonText: 'Cancel'
+                        confirmButtonText: 'Logout',
+                        cancelButtonText: 'Cancel',
+                        heightAuto: false
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Proceed with logout
