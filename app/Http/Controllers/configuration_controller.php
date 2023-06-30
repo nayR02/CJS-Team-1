@@ -28,7 +28,8 @@ class configuration_controller extends Controller
 
         $file = $request->file('avatar');
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-        Storage::disk('public')->put($filename, file_get_contents($file));
+        $file->move(public_path('assets/images/'),$filename);
+        // Storage::disk('public')->put($filename, file_get_contents($file));
 
         $information = new configuration_model; // Replace with your configuration model name
 

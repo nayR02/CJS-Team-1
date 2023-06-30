@@ -30,12 +30,12 @@
             <script>
                 function confirmLogout() {
                     Swal.fire({
-                        title: 'Confirmation',
                         text: 'Are you sure you want to log out?',
-                        icon: 'question',
+                        icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonText: 'Yes, logout',
-                        cancelButtonText: 'Cancel'
+                        confirmButtonText: 'Logout',
+                        cancelButtonText: 'Cancel',
+                        heightAuto: false,
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Proceed with logout
@@ -51,17 +51,6 @@
             </div>
         </section>
         <section class="box2">
-            <button class="circle" id="customModal" onclick="openModal()">?</button>
-            <!--  -->
-            <figure id="myModal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <div class="modal-in">
-
-                    </div>
-
-                </div>
-            </figure>
             <script>
                 function openModal() {
                     var modal = document.getElementById("myModal");
