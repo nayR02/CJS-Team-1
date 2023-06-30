@@ -23,7 +23,9 @@
             <figure class="imgcrd">
                 <img class="logo" src="/assets/images/logomain.png" alt="">
             </figure>
-            <button class="logout" onclick="confirmLogout()">
+            <button class="logout" onclick="confirmLogout()"
+            style=" cursor: pointer;"
+            >
                 Logout
             </button>
 

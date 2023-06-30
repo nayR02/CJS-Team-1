@@ -21,10 +21,18 @@ class configuration_controller extends Controller
     //  -- Create
     public function save(Request $request)
     {
-        $cnumber = $request->input('candidate_number');
-        $cname = $request->input('candidate_name');
-        $municipality = $request->input('municipality');
-        $age = $request->input('age');
+        $validatedData = $request->validate([
+            'candidate_number' => 'required|numeric|unique:candidate_configurations',
+            'candidate_name' => 'required|string',
+            'municipality' => 'required|string',
+            'age' => 'required|integer', 
+            'avatar' => 'required|image', 
+        ]);
+    
+        $cnumber = $validatedData['candidate_number'];
+        $cname = ucwords($validatedData['candidate_name']);
+        $municipality = ucwords($validatedData['municipality']);
+        $age = $validatedData['age'];
 
         $file = $request->file('avatar');
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
@@ -38,6 +46,12 @@ class configuration_controller extends Controller
         $information->municipality = $municipality;
         $information->age = $age;
         $information->profile = $filename;
+        
+        
+        $information->save();
+
+        $sortedCandidates = configuration_model::orderBy('candidate_number')->get();
+        return redirect('candidates');  
 
         $information->save();
 

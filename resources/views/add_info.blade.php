@@ -77,7 +77,7 @@
                             <div class="genwrap">
                                 <figure class="genparent">
                                     <label>Enter number of Rounds: </label>
-                                    <input type="number" id="numInputs" />
+                                    <input type="number" id="numInputs" required/>
                                     <button onclick="rounds()" class="standard-btn"><i class="fa-solid fa-circle-plus me-1"></i>Add Round(s)</button>
                                 </figure>
                                 <div id="inputContainer">
@@ -121,6 +121,7 @@
                                         input.id = `round_${i + 1}`;
                                         input.name = "rounds[]";
                                         input.placeholder = "(e.g. Preliminary)";
+                                        input.required = true;
                                         inputContainer.appendChild(input);
                                         dInputs.push(input.value);
                                     }
