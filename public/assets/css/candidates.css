@@ -162,7 +162,7 @@ section {
 #flashMessage, 
 #candidateAdded {
     position: absolute;
-    top: -2rem;
+    top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
