@@ -118,7 +118,7 @@ body {
     padding: 3px;
 }
 .tevol input {
-    max-width: 50%;
+    max-width: 100%;
     text-align: center;
     outline: none;
     border: none;
